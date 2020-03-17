@@ -1,7 +1,25 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p>
-    Hello world!
-  </p>
+<table>
+    <tr>
+        <td>
+            <h2>Tervetuloa BJJ-ottelutilastopalveluun</h2>
+            <h3>Jiujitsu</h3>
+            <h5>noun</h5>
+            <i>jiu-jit-su | /jü-'jit-(,)sü/</i>
+            <p></p>
+            <ol>
+                <li>The gentle art of folding clothes while people are still in them</li>
+                <li>Involuntary yoga (<i>verb, used with object)</i></li>
+                <li> The act of choking another for one's own happiness</li>
+            </ol>
+        </td>
+        <td>
+            <img src="{{url_for('static', filename='juji-gatameHultstrom.jpg')}}" alt="juji-gatameHultstrom" style="width:500px;height: 800px;"/>
+            Kuva: <a href="https://www.flickr.com/photos/hultstrom/8640583586">Michael Hultsröm </a>  
+        </td>
+    </tr>
+</table>
+
 {% endblock %}

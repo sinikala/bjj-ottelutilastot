@@ -21,4 +21,4 @@ Toimintoja:
   - Itse lisätyn ottelun/ottelijan muokkaaminen ja poisto
 
 
-#### [Tietokannan rakenne](https://github.com/sinikala/bjj-ottelutilastot/blob/master/dokumentaatio/tietokanta.md)
+#### [Tietokannan rakenne](https://github.com/sinikala/bjj-ottelutilastot/blob/master/dokumentation/tietokanta.md)

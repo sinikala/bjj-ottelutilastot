@@ -1,4 +1,5 @@
 # bjj-ottelutilastot
+
 ### Tulospalvelu brasilialaisen jujutsun -otteluille
 Käyttäjä voi palvelun avulla tarkastella toteutuneiden BJJ-otteluiden tuloksia sekä otelleiden ottelijoiden tulosten kannalta oleellisia tietoja, kuten vyötaso ja kotiseura.
 
@@ -12,3 +13,5 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
 #### [Käyttötapaukset](https://github.com/sinikala/bjj-ottelutilastot/blob/master/documentation/kayttotapaukset.md)
 
 #### [Tietokannan rakenne](https://github.com/sinikala/bjj-ottelutilastot/blob/master/documentation/tietokanta.md)
+
+#### [Sovellus Herokussa](https://bjj-ottelutilastot.herokuapp.com/)

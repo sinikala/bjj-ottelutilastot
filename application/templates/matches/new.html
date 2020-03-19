@@ -3,6 +3,10 @@
 {% block body %}
 <form method="POST" action="{{ url_for('matches_create') }}">
   Paikka: <input type="text" name="place"/>
+  Ottelija 1: <input type="text" name="fighter1"/>
+  Ottelija 2: <input type="text" name="fighter2"/>
+  Voittotyyppi: <input type="text" name="winning_category"/>
+  Lisätietoja: <input type="text" name="comment"/>
   <input type="submit" value="Lisää uusi ottelu"/>
 </form>
 {% endblock %}

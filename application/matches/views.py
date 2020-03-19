@@ -22,12 +22,26 @@ def match_toggle_winner(match_id):
   
     return redirect(url_for("matches_index"))
 
+@app.route("/matches/<match_id>", methods=["DELETE", "GET"])
+def match_remove_match(match_id):
+
+    matchToDelete = Match.query.get(match_id)
+    db.session().delete(matchToDelete)
+    db.session().commit()
+  
+    return redirect(url_for("matches_index"))
+
 @app.route("/matches/", methods=["POST"])
 def matches_create():
-    place = Match(request.form.get("place"))
-    #print(request.form.get("winning_category"))
+    winning_category = request.form.get("winning_category")
+    place = request.form.get("place")
+    fighter1 = request.form.get("fighter1")
+    fighter2 = request.form.get("fighter2")
+    comment= request.form.get("comment")
+    match = Match(place, winning_category, fighter1, fighter2, comment)
 
-    db.session().add(place)
+
+    db.session().add(match)
     db.session().commit()
   
     return redirect(url_for("matches_index"))

@@ -10,8 +10,8 @@ Tulostilastoja voi rajata eri ominaisuuksien, kuten vyötaso, voittotyyppi tai p
 Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä uusia ottelijoita ja muokata tietoja. 
 
 
-#### [Käyttötapaukset](https://github.com/sinikala/bjj-ottelutilastot/blob/master/documentation/kayttotapaukset.md)
+#### [Käyttötapaukset](./documentation/kayttotapaukset.md)
 
-#### [Tietokannan rakenne](https://github.com/sinikala/bjj-ottelutilastot/blob/master/documentation/tietokanta.md)
+#### [Tietokannan rakenne](./documentation/tietokanta.md)
 
 #### [Sovellus Herokussa](https://bjj-ottelutilastot.herokuapp.com/)

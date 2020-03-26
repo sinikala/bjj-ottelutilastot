@@ -1,6 +1,7 @@
 from application import app, db
 from flask import render_template, request, redirect, url_for
 from application.matches.models import Match
+from application.matches.forms import MatchForm
 
 @app.route("/matches", methods=["GET"])
 def matches_index():
@@ -8,7 +9,7 @@ def matches_index():
 
 @app.route("/matches/new/")
 def matches_form():
-    return render_template("matches/new.html")
+    return render_template("matches/new.html", form= MatchForm())
 
 @app.route("/matches/<match_id>/", methods=["POST"])
 def match_toggle_winner(match_id):
@@ -33,11 +34,17 @@ def match_remove_match(match_id):
 
 @app.route("/matches/", methods=["POST"])
 def matches_create():
-    winning_category = request.form.get("winning_category")
-    place = request.form.get("place")
-    fighter1 = request.form.get("fighter1")
-    fighter2 = request.form.get("fighter2")
-    comment= request.form.get("comment")
+    form= MatchForm(request.form)
+
+    if not form.validate():
+        return render_template("matches/new.html", form = form)
+
+
+    winning_category = dict(form.winning_category.choices).get(form.winning_category.data)
+    place = form.place.data
+    fighter1 = form.fighter1.data
+    fighter2 = form.fighter2.data
+    comment= form.comment.data
     match = Match(place, winning_category, fighter1, fighter2, comment)
 
 

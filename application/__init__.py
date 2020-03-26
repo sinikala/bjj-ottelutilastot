@@ -17,5 +17,7 @@ from application import views
 
 from application.matches import models
 from application.matches import views
+from application.fighters import models
+from application.fighters import views
 # Luodaan lopulta tarvittavat tietokantataulut
 db.create_all()

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <form method="GET" action="{{ url_for('fighters_index') }}">
+            <input type="submit" value="Takaisin"/>
+        </form>
+    <h2>{{fighter.name}}</h2>
+    <table>
+        <tr>
+            <td><b>Vyöarvo</b></td>
+            <td>{{fighter.belt}}</td> 
+        </tr>
+        <tr>
+            <td><b>Paino</b></td>
+            <td>{{fighter.weight}}</td> 
+        </tr>
+        <tr>
+            <td><b>Kotiseura</b></td>
+            <td>{{fighter.club}}</td> 
+        </tr>
+        <tr>
+            <td><b>Otteluita</b></td>
+            <td></td> 
+        </tr>      
+    </table>
+    <form method="DELETE" action="{{ url_for('remove_fighter', fighter_id=fighter.id) }}">
+          <input type="submit" value="Poista ottelija"/>
+        </form>
+     
+{% endblock %}

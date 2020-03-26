@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Nimi</th>
+      <th>Vyöarvo</th>
+      <th>Kotiseura</th>
+      
+    </tr>
+    {% for fighter in fighters %}
+    <tr>
+      <td>{{ fighter.name }}</td>
+      <td>{{ fighter.belt }}</td>
+      <td>{{ fighter.club }}</td>  
+      <td>
+        <form method="GET" action="{{ url_for('fighter_info', fighter_id=fighter.id) }}">
+            <input type="submit" value="Profiili"/>
+        </form>
+        </td>    
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

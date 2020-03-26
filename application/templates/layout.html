@@ -9,7 +9,9 @@
     <ul>
       <li><a href="{{ url_for('index') }}">Etusivu</a></li>
         <li><a href="{{ url_for('matches_index') }}">Ottelut</a></li>
+        <li><a href="{{ url_for('fighters_index') }}">Ottelijat</a></li>
         <li><a href="{{ url_for('matches_form') }}">Lisää ottelu</a></li>
+        <li><a href="{{ url_for('fighters_form') }}">Lisää ottelija</a></li>
     </ul>
 
     {% block body %}

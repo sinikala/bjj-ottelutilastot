@@ -1,3 +1,3 @@
 ### Alustava tietokantokaavio
 
-![tietokantakaavio](./application/static/tietokantakaavio.jpg)
+![tietokantakaavio](../application/static/tietokantakaavio.jpg)

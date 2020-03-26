@@ -1,5 +1,6 @@
 from application import app, db
 from flask import render_template, request, redirect, url_for
+from flask_login import login_required
 from application.fighters.models import Fighter
 from application.fighters.forms import FighterForm
 
@@ -10,11 +11,13 @@ def fighters_index():
 
 
 @app.route("/fighters/new/")
+@login_required
 def fighters_form():
     return render_template("fighters/new.html", form= FighterForm())
 
 
 @app.route("/fighters/", methods=["POST"])
+@login_required
 def fighters_create():
     form = FighterForm(request.form)
 
@@ -43,6 +46,7 @@ def fighter_info(fighter_id):
 
 
 @app.route("/fighters/<fighter_id>/", methods=["DELETE", "GET"])
+@login_required
 def remove_fighter(fighter_id):
 
     fighterToDelete = Fighter.query.get(fighter_id)

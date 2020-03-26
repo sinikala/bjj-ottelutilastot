@@ -20,6 +20,7 @@
       <td> ottelija {{ match.winner_id }}</td>
       <td>{{ match.winning_category }}</td>
       <td>{{ match.comment }}</td>
+      {% if current_user.is_authenticated %}
       <td>
         <form method="POST" action="{{ url_for('match_toggle_winner', match_id=match.id) }}">
           <input type="submit" value="Vaihda voittaja"/>
@@ -30,7 +31,10 @@
           <input type="submit" value="Poista ottelu"/>
         </form>
       </td>
-      
+      {% else %}
+        <td></td>
+        <td></td>
+      {% endif %}
     </tr>
     {% endfor %}
   </table>

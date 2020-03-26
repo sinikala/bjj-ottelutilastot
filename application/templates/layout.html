@@ -6,13 +6,27 @@
   </head>
 
   <body>
-    <ul>
+    {% if current_user.is_authenticated %}
+      <p>
+	      Kirjautunut nimellä {{ current_user.name }} <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
+      </p>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Etusivu</a></li>
+          <li><a href="{{ url_for('matches_index') }}">Ottelut</a></li>
+          <li><a href="{{ url_for('fighters_index') }}">Ottelijat</a></li>
+          <li><a href="{{ url_for('matches_form') }}">Lisää ottelu</a></li>
+          <li><a href="{{ url_for('fighters_form') }}">Lisää ottelija</a></li>
+      </ul>
+    {% else %}
+      <ul>
       <li><a href="{{ url_for('index') }}">Etusivu</a></li>
         <li><a href="{{ url_for('matches_index') }}">Ottelut</a></li>
         <li><a href="{{ url_for('fighters_index') }}">Ottelijat</a></li>
-        <li><a href="{{ url_for('matches_form') }}">Lisää ottelu</a></li>
-        <li><a href="{{ url_for('fighters_form') }}">Lisää ottelija</a></li>
-    </ul>
+        <li><a href="{{ url_for('auth_login') }}">Kirjaudu</a></li>
+      </ul>
+      
+    {% endif %}
+    
 
     {% block body %}
       <p>

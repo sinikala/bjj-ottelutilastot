@@ -23,8 +23,10 @@
             <td></td> 
         </tr>      
     </table>
+    {% if current_user.is_authenticated %}
     <form method="DELETE" action="{{ url_for('remove_fighter', fighter_id=fighter.id) }}">
           <input type="submit" value="Poista ottelija"/>
-        </form>
+    </form>
+    {% endif %}
      
 {% endblock %}

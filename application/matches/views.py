@@ -1,5 +1,6 @@
 from application import app, db
 from flask import render_template, request, redirect, url_for
+from flask_login import login_required
 from application.matches.models import Match
 from application.matches.forms import MatchForm
 
@@ -8,10 +9,12 @@ def matches_index():
     return render_template("matches/list.html", matches = Match.query.all())
 
 @app.route("/matches/new/")
+@login_required
 def matches_form():
     return render_template("matches/new.html", form= MatchForm())
 
 @app.route("/matches/<match_id>/", methods=["POST"])
+@login_required
 def match_toggle_winner(match_id):
 
     m = Match.query.get(match_id)
@@ -23,7 +26,10 @@ def match_toggle_winner(match_id):
   
     return redirect(url_for("matches_index"))
 
+
+
 @app.route("/matches/<match_id>", methods=["DELETE", "GET"])
+@login_required
 def match_remove_match(match_id):
 
     matchToDelete = Match.query.get(match_id)
@@ -32,7 +38,10 @@ def match_remove_match(match_id):
   
     return redirect(url_for("matches_index"))
 
+
+
 @app.route("/matches/", methods=["POST"])
+@login_required
 def matches_create():
     form= MatchForm(request.form)
 

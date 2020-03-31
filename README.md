@@ -1,13 +1,5 @@
 # bjj-ottelutilastot
 
-### Huom!
-Sovelluksen ollessa tällä hetkellä ikävästi välivaiheessa, voi sen CUD-toiminnallisuuksia testata vain paikallisesti. Tämä vaatii käyttäjän luomista suoraan tietokantaan sqlitellä esimerkiksi näin:
-```
-INSERT INTO account (name, username, password) VALUES ('Antti Admin', 'root', 'salainen');
-```
-Tämä jälkeen voit kirjautua sovelluksessa normaalisti
-WIP...
-
 
 ### Tulospalvelu brasilialaisen jujutsun -otteluille
 Käyttäjä voi palvelun avulla tarkastella toteutuneiden BJJ-otteluiden tuloksia sekä otelleiden ottelijoiden tulosten kannalta oleellisia tietoja, kuten vyötaso ja kotiseura.

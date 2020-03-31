@@ -16,3 +16,7 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
 #### [Tietokannan rakenne](./documentation/tietokanta.md)
 
 #### [Sovellus Herokussa](https://bjj-ottelutilastot.herokuapp.com/)
+
+Herokussa voit luoda omat käyttäjätunnuksesi tai kirjautua suoraan sisään testitunnuksilla
+käyttäjänimi: root
+salasana: secret

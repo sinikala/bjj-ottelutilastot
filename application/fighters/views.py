@@ -1,6 +1,6 @@
 from application import app, db
 from flask import render_template, request, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from application.fighters.models import Fighter
 from application.fighters.forms import FighterForm
 
@@ -28,8 +28,9 @@ def fighters_create():
     belt = dict(form.belt.choices).get(form.belt.data)
     club= form.club.data
     weight=form.weight.data
+    creator_id= current_user.id
 
-    f= Fighter(name, belt, club, weight)
+    f= Fighter(name, belt, club, weight, creator_id)
     db.session().add(f)
     db.session().commit()
   

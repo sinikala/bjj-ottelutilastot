@@ -13,6 +13,9 @@ class User(db.Model):
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
 
+    matches_added= db.relationship("Match", backref='account', lazy=True)
+    fighters_added = db.relationship("Fighter", backref='account', lazy=True)
+
     def __init__(self, name, username, password):
         self.name = name
         self.username = username

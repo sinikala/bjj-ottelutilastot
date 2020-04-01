@@ -19,7 +19,7 @@ def auth_login():
                                error = "Kirjautuminen epäonnistui")
 
 
-    login_user(user)
+    login_user(user, remember=True)
     return redirect(url_for("index"))   
 
 

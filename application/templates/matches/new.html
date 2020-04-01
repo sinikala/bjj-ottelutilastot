@@ -1,8 +1,12 @@
 {% extends "layout.html" %}
   
 {% block body %}
+{{ error }}
 <form method="POST" action="{{ url_for('matches_create') }}">
   <table>
+    <div>
+      Jos haluamaasi ottelijaa ei löydy listasta, voit lisätä hänet tietokantaan Lisää ottelija -sivulta.
+    </div>
     <tr>
       <td>
         {{ form.place.label }}

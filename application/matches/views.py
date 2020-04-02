@@ -28,7 +28,7 @@ def matches_form():
     form= MatchForm()
     form.fighter1.choices=names
     form.fighter2.choices=names
-    return render_template("matches/new.html", form= form)
+    return render_template("matches/new.html", form= form, url='fighters_create')
 
 @app.route("/matches/<match_id>/", methods=["POST"])
 @login_required

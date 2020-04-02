@@ -1,8 +1,7 @@
 {% extends "layout.html" %}
-{import "bootstrap/wtf.html" as wtf %}
   
 {% block body %}
-<form method="POST" action="{{url_for('fighters_create')}}">
+<form method="POST" action="{{url_for('edit_fighter', fighter_id=fighter_id)}}">
   <table>
     <tr>
       <td>
@@ -59,9 +58,8 @@
     </tr>
     <tr>
       <td colspan="2">
-        <input type="submit" value="Lisää ottelija"/>
+        <input type="submit" value="Tallenna"/>
       </td>
     </tr>  
-</form> 
-  
+</form>
 {% endblock %}

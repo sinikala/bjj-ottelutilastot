@@ -3,7 +3,7 @@
 {% block body %}
     <form method="GET" action="{{ url_for('fighters_index') }}">
             <input type="submit" value="Takaisin"/>
-        </form>
+    </form>
     <h2>{{fighter.name}}</h2>
     <table>
         <tr>
@@ -28,6 +28,9 @@
         </tr>       
     </table>
     {% if current_user.is_authenticated %}
+    <form method="GET" action="{{ url_for('fighters_editform', fighter_id=fighter.id) }}">
+        <input type="submit" value="Muokkaa tietoja"/>
+  </form>
     <form method="DELETE" action="{{ url_for('remove_fighter', fighter_id=fighter.id) }}">
           <input type="submit" value="Poista ottelija"/>
     </form>

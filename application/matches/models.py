@@ -1,4 +1,5 @@
 from application import db
+from sqlalchemy.sql import text
 
 class Match(db.Model):
     id=db.Column(db.Integer, primary_key=True)
@@ -27,3 +28,20 @@ class Match(db.Model):
         self.creator_id=creator_id
 
         #fighter1_id, fighter2_id, winner_id, winning_category, comment, adder_id
+
+
+    @staticmethod
+    def find_fighter_names(fighter_id, fighters):
+        #stmt= text("SELECT Fighter.name FROM Fighter"
+        #            " WHERE Fighter.id = :id").params(id=fighter_id)
+        
+        #res= db.engine.execute(stmt)
+        response=[]
+        #for row in res:
+        #    response.append({"name":row[0]})
+        for fighter in fighters:
+            if fighter.id==fighter_id:
+                return fighter.name
+
+        return response
+       

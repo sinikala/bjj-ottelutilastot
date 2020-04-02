@@ -7,7 +7,17 @@ from application.fighters.models import Fighter
 
 @app.route("/matches", methods=["GET"])
 def matches_index():
-    return render_template("matches/list.html", matches = Match.query.all())
+    matches = Match.query.all()
+    fighters=Fighter.query.all()
+
+    to_list=[]
+    for match in matches:
+        fighter1 = Match.find_fighter_names(match.fighter1_id,fighters)
+        fighter2 = Match.find_fighter_names(match.fighter2_id,fighters)
+        to_list.append({"id": match.id, "place": match.place, "fighter1":fighter1, "fighter2":fighter2,
+        "winner_id":match.winner_id, "winning_category": match.winning_category, "comment":match.comment})
+        
+    return render_template("matches/list.html", matches = to_list)
 
 @app.route("/matches/new/", methods=["GET"])
 @login_required
@@ -61,8 +71,9 @@ def matches_create():
 
     winning_category = dict(form.winning_category.choices).get(form.winning_category.data)
     place = form.place.data
-    fighter1_id = dict(form.fighter1.choices).get(form.fighter1.label)
-    fighter2_id = dict(form.fighter2.choices).get(form.fighter2.label)
+    fighter1_id =form.fighter1.data
+    fighter2_id =form.fighter2.data
+
     comment= form.comment.data
     creator_id= current_user.id
     match = Match(place, winning_category, fighter1_id, fighter2_id, comment, creator_id)

@@ -1,4 +1,5 @@
 from application import db
+from sqlalchemy.sql import text
 
 
 class Fighter(db.Model):
@@ -18,4 +19,25 @@ class Fighter(db.Model):
         self.weight=weight
         self.creator_id=creator_id
 
+
+    @staticmethod
+    def get_match_history(fighter_id):
+        stmt = text("SELECT COALESCE((SELECT COUNT(*) FROM Match"
+                    " WHERE (fighter1_id = :id OR fighter2_id = :id)),0)").params(id=fighter_id)
+        
+        res= db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append(row[0])
+
+        stmt = text("SELECT COALESCE((SELECT COUNT(*) FROM Match"
+                    " WHERE winner_id = :id),0)").params(id=fighter_id)
+        
+        res= db.engine.execute(stmt)
+        for row in res:
+            response.append(row[0])
+
+        print("res", response)
+        return response
+    
 

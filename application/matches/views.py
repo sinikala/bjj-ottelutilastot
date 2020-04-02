@@ -14,8 +14,9 @@ def matches_index():
     for match in matches:
         fighter1 = Match.find_fighter_names(match.fighter1_id,fighters)
         fighter2 = Match.find_fighter_names(match.fighter2_id,fighters)
+        winner= Match.find_fighter_names(match.winner_id,fighters)
         to_list.append({"id": match.id, "place": match.place, "fighter1":fighter1, "fighter2":fighter2,
-        "winner_id":match.winner_id, "winning_category": match.winning_category, "comment":match.comment})
+        "winner_id":match.winner_id, "winner":winner, "winning_category": match.winning_category, "comment":match.comment})
         
     return render_template("matches/list.html", matches = to_list)
 
@@ -34,10 +35,11 @@ def matches_form():
 def match_toggle_winner(match_id):
 
     m = Match.query.get(match_id)
-    if (m.winner_id==1):
-        m.winner_id=2
+    
+    if (m.winner_id==m.fighter1_id):
+        m.winner_id=m.fighter2_id
     else:
-         m.winner_id=1
+         m.winner_id=m.fighter1_id
     db.session().commit()
   
     return redirect(url_for("matches_index"))
@@ -74,14 +76,21 @@ def matches_create():
     fighter1_id =form.fighter1.data
     fighter2_id =form.fighter2.data
 
-    comment= form.comment.data
-    creator_id= current_user.id
-    match = Match(place, winning_category, fighter1_id, fighter2_id, comment, creator_id)
-
     if fighter1_id==fighter2_id:
         return render_template("matches/new.html", form = form,
                                error = "Valitse kaksi eri ottelijaa")
 
+    winner=form.winner.data
+    if winner==1:
+        winner_id=fighter1_id
+    else:
+        winner_id=fighter2_id
+
+    comment= form.comment.data
+    creator_id= current_user.id
+    match = Match(place, winning_category, fighter1_id, fighter2_id, winner_id, comment, creator_id)
+
+   
     db.session().add(match)
     db.session().commit()
   

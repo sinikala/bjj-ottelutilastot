@@ -42,8 +42,9 @@ def fighters_create():
 def fighter_info(fighter_id):
 
     fighter = Fighter.query.get(fighter_id)
-  
-    return render_template("fighters/fighter.html", fighter=fighter)
+    history= Fighter.get_match_history(fighter_id)
+    
+    return render_template("fighters/fighter.html", fighter=fighter, history=history)
 
 
 @app.route("/fighters/<fighter_id>/", methods=["DELETE", "GET"])

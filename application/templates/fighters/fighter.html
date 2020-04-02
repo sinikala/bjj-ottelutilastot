@@ -20,8 +20,12 @@
         </tr>
         <tr>
             <td><b>Otteluita</b></td>
-            <td></td> 
-        </tr>      
+            <td>{{history[0]}}</td> 
+        </tr>
+        <tr>
+            <td><b>Voittoja</b></td>
+            <td>{{history[1]}}</td> 
+        </tr>       
     </table>
     {% if current_user.is_authenticated %}
     <form method="DELETE" action="{{ url_for('remove_fighter', fighter_id=fighter.id) }}">

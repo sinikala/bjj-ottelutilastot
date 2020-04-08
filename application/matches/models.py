@@ -24,7 +24,7 @@ class Match(db.Model):
         self.comment=comment
         self.creator_id=creator_id
 
-        #fighter1_id, fighter2_id, winner_id, winning_category, comment, adder_id
+       
 
 
     @staticmethod

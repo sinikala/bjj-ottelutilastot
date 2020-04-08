@@ -12,7 +12,7 @@ class LoginForm(FlaskForm):
 
 class RegisterForm(FlaskForm):
     name= StringField("Nimi", [validators.Length(min=3, max=50)])
-    username = StringField("Käyttäjätunnus", [validators.Length(min=3, max=144)])
+    username = StringField("Käyttäjätunnus", [validators.Length(min=3, max=50)])
     password = PasswordField("Salasana",[validators.Length(min=5, max=144),
     validators.EqualTo('confirm', message='Salasanojen tulee täsmätä')])
     confirm = PasswordField("Toista salasana")

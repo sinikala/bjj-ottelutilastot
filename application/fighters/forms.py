@@ -1,14 +1,16 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, validators, SelectField, DecimalField
+from wtforms.validators import NumberRange
 
 
 
 class FighterForm(FlaskForm):
-    name = StringField("Nimi", [validators.Length(min=3)])
+    name = StringField("Nimi", [validators.Length(min=3, max=50)])
     belt = SelectField("Vyöarvo", choices=[('white', 'valkoinen'),
        ('blue', 'sininen'), ('purple', 'violetti'), ('brown', 'ruskea'), ('black', 'musta')])
-    club = StringField("Seura")
-    weight = DecimalField("Paino", places=1, rounding=None)
+    club = StringField("Seura", [validators.Length(min=3, max=80)])
+    weight = DecimalField("Paino (kg)", places=1, rounding=None, validators=[NumberRange(min=0, max=200,
+        message='Paino ei voi olla negatiivinen tai yli 200 kg')])
 
     class Meta:
         csrf = False

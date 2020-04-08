@@ -30,6 +30,8 @@ from application.matches import views
 from application.fighters import models
 from application.fighters import views
 
+from application.points import models
+
 from application.auth import models 
 from application.auth import views
 

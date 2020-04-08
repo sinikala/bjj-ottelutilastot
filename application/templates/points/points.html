@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+  
+{% block body %}
+<form method="POST" action="{{ url_for('add_points') }}">
+  <table>
+    <div>
+      <b>Lisää vielä ottelun lopulliset pisteet</b>
+    </div>
+    <tr>
+      <td>
+        {{ fighter1 }} Ottelija 1
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.fighter1_points.label }}
+      </td>
+      <td>
+        {{ form.fighter1_points }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.fighter1_points.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.fighter1_penalties.label }}
+      </td>
+      <td>
+        {{ form.fighter1_penalties }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.fighter1_penalties.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.fighter1_advantages.label }}
+      </td>
+      <td>
+        {{ form.fighter1_advantages}}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.fighter1_advantages.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+        <td>
+          {{ fighter2 }} Ottelija 2
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ form.fighter2_points.label }}
+        </td>
+        <td>
+          {{ form.fighter2_points }}
+        </td>
+        <td>
+          <ul>
+            {% for error in form.fighter2_points.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ form.fighter2_penalties.label }}
+        </td>
+        <td>
+          {{ form.fighter2_penalties }}
+        </td>
+        <td>
+          <ul>
+            {% for error in form.fighter2_penalties.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ form.fighter2_advantages.label }}
+        </td>
+        <td>
+          {{ form.fighter2_advantages}}
+        </td>
+        <td>
+          <ul>
+            {% for error in form.fighter2_advantages.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Tallenna pisteet"/>
+      </td>
+    </tr>  
+</form>
+<b>{{ error }}</b>
+{% endblock %}

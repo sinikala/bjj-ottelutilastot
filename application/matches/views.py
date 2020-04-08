@@ -12,9 +12,9 @@ def matches_index():
 
     to_list=[]
     for match in matches:
-        fighter1 = Match.find_fighter_names(match.fighter1_id,fighters)
-        fighter2 = Match.find_fighter_names(match.fighter2_id,fighters)
-        winner= Match.find_fighter_names(match.winner_id,fighters)
+        fighter1 = Fighter.find_fighter_names(match.fighter1_id,fighters)
+        fighter2 = Fighter.find_fighter_names(match.fighter2_id,fighters)
+        winner= Fighter.find_fighter_names(match.winner_id,fighters)
         to_list.append({"id": match.id, "place": match.place, "fighter1":fighter1, "fighter2":fighter2,
         "winner_id":match.winner_id, "winner":winner, "winning_category": match.winning_category, "comment":match.comment})
         
@@ -28,7 +28,8 @@ def matches_form():
     form= MatchForm()
     form.fighter1.choices=names
     form.fighter2.choices=names
-    return render_template("matches/new.html", form= form, url='fighters_create')
+    return render_template("matches/new.html", form= form)
+    # url='fighters_create'
 
 @app.route("/matches/<match_id>/", methods=["POST"])
 @login_required
@@ -70,14 +71,13 @@ def matches_create():
     if not form.validate():
         return render_template("matches/new.html", form = form)
 
-
     winning_category = dict(form.winning_category.choices).get(form.winning_category.data)
     place = form.place.data
     fighter1_id =form.fighter1.data
     fighter2_id =form.fighter2.data
 
     if fighter1_id==fighter2_id:
-        return render_template("matches/new.html", form = form,
+        return render_template("matches/new.html", form = form, 
                                error = "Valitse kaksi eri ottelijaa")
 
     winner=form.winner.data
@@ -88,10 +88,17 @@ def matches_create():
 
     comment= form.comment.data
     creator_id= current_user.id
+    
+    
+
+       
     match = Match(place, winning_category, fighter1_id, fighter2_id, winner_id, comment, creator_id)
 
-   
     db.session().add(match)
     db.session().commit()
-  
-    return redirect(url_for("matches_index"))
+    
+
+    if winning_category=='Pistevoitto':
+        return redirect(url_for('points_form', fighter1_id=fighter1_id, fighter2_id=fighter2_id, match_id=match.id))
+    else:
+        return redirect(url_for("matches_index"))

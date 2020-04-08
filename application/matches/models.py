@@ -17,7 +17,7 @@ class Match(db.Model):
     def __init__(self, place, winning_category, fighter1_id, fighter2_id, winner_id, comment, creator_id):
         self.place = place
         self.winning_category= winning_category
-        self.winner_id=1
+        self.winner_id=winner_id
         self.fighter1_id=fighter1_id
         self.fighter2_id=fighter2_id
         self.winner_id=winner_id
@@ -27,18 +27,5 @@ class Match(db.Model):
        
 
 
-    @staticmethod
-    def find_fighter_names(fighter_id, fighters):
-        #stmt= text("SELECT Fighter.name FROM Fighter"
-        #            " WHERE Fighter.id = :id").params(id=fighter_id)
-        
-        #res= db.engine.execute(stmt)
-        response=[]
-        #for row in res:
-        #    response.append({"name":row[0]})
-        for fighter in fighters:
-            if fighter.id==fighter_id:
-                return fighter.name
-
-        return response
+    
        

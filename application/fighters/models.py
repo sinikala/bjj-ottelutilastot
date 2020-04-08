@@ -41,3 +41,22 @@ class Fighter(db.Model):
         return response
     
 
+    @staticmethod
+    def find_fighter_names(fighter_id, fighters):
+
+        for fighter in fighters:
+            if fighter.id==fighter_id:
+                return fighter.name
+
+            
+        #else:
+         #   stmt= text("SELECT Fighter.name FROM Fighter"
+          #          " WHERE Fighter.id = :id").params(id=fighter_id)
+        #
+         #   res= db.engine.execute(stmt)
+          #  response=[]
+           # for row in res:
+                #response.append({"name":row[0]})
+            #    return row[0]
+            #return response
+

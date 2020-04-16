@@ -9,7 +9,7 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
 
 Käyttötapaukset:
 
-**Käyttäjä voi** 
+**Käyttäjä voi ...** 
 
 - tarkastella listaa palveluun tallennetuista otteluista
 - nähdä yksittäisestä ottelusta ottelun päivämäärän, paikan, ottelutason, painoluokan, osallistujat, voittajan,    ottelussa tehdyt pisteet, mikäli kysessä pisteillä voitettu ottelu(*) ja voittotyypin sekä mahdollisen moderaattorin kommentin
@@ -20,10 +20,10 @@ Käyttötapaukset:
  - rekisteröityä moderaattoriksi, eli luoda käyttäjätunnukset, mikäli hän tietää rekisteröitymiseen vaadittavan avaimen.
 
  
-**Moderaattori, eli kirjautunut käyttäjä, voi**
+**Moderaattori, eli kirjautunut käyttäjä, voi ...**
     
  - kirjautua sisään omalla käyttäjänimellä ja salasanallaan
- -  ...**sisäänkirjatuneena** 
+ -  ...**sisäänkirjatuneena** ... 
  - lisätä ottelun palveluun
  - lisätä ottelijan palveluun
  - muokata palvelussa olevan ottelun tietoja

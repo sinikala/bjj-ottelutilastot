@@ -9,18 +9,27 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
 
 Käyttötapaukset:
 
-- Käyttäjä voi tarkastella listaa palveluun tallennetuista otteluista
-- Käyttäjä näkee yksittäisestä ottelusta ottelun päivämäärän, paikan, ottelutason, painoluokan, osallistujat, voittajan, ottelussa tehdyt pisteet, mikäli kysessä pisteillä voitettu ottelu(*) ja voittotyypin sekä mahdollisen moderaattorin kommentin
-- Käyttäjä voi rajata ottelulistaa seuran, ottelijan tai voittotyypin perusteella
-- Käyttäjä voi nähdä listan kaikista palveluun lisätyistä ottelijoista
-- Käyttäjä voi tarkastella yksittäisen ottelijoiden tietoja, jotka sisältävät ottelijan nimen, vyötason, painon, otteluiden ja voittojen määrän sekä kotiseuran
-- Käyttäjä voi  rajata ottelijalistassa näkyviä ottelijoita nimen, kotiseuran tai vyötason perusteella
+**Käyttäjä voi** 
 
-- Käyttäjä voi rekisteröityä moderaattoriksi, eli luoda käyttäjätunnukset, mikäli hän tietää rekisteröitymiseen vaadittavan avaimen.
-- Moderaattori, eli kirjautunut käyttäjä, voi kirjautua sisään omalla käyttäjänimellä ja salasanallaan
-- Moderaattori voi sisäänkirjatuneena lisätä ottelun palveluun
-- Moderaattori voi sisäänkirjatuneena lisätä ottelijan palveluun
-- Moderaattori voi sisäänkirjatuneena muokata palvelussa olevan ottelun tietoja
-- Moderaattori voi sisäänkirjatuneena muokata palvelussa olevan pttelijan tietoja
-- Moderaattori voi sisäänkirjatuneena poistaa ottelun
-- Moderaattori voi sisäänkirjatuneena poistaa ottelijan
+- tarkastella listaa palveluun tallennetuista otteluista
+- nähdä yksittäisestä ottelusta ottelun päivämäärän, paikan, ottelutason, painoluokan, osallistujat, voittajan,    ottelussa tehdyt pisteet, mikäli kysessä pisteillä voitettu ottelu(*) ja voittotyypin sekä mahdollisen moderaattorin kommentin
+- rajata ottelulistaa seuran, ottelijan tai voittotyypin perusteella
+- nähdä listan kaikista palveluun lisätyistä ottelijoista
+- tarkastella yksittäisen ottelijoiden tietoja, jotka sisältävät ottelijan nimen, vyötason, painon, otteluiden ja voittojen määrän sekä kotiseuran
+ - rajata ottelijalistassa näkyviä ottelijoita nimen, kotiseuran tai vyötason perusteella
+ - rekisteröityä moderaattoriksi, eli luoda käyttäjätunnukset, mikäli hän tietää rekisteröitymiseen vaadittavan avaimen.
+
+ 
+**Moderaattori, eli kirjautunut käyttäjä, voi**
+    
+ - kirjautua sisään omalla käyttäjänimellä ja salasanallaan
+ -  ...**sisäänkirjatuneena** 
+ - lisätä ottelun palveluun
+ - lisätä ottelijan palveluun
+ - muokata palvelussa olevan ottelun tietoja
+ - muokata palvelussa olevan pttelijan tietoja
+ - poistaa ottelun
+ - poistaa ottelijan
+
+
+(*) Brasialialaisessa jujutsussa pisteet ilmoitetaan tuloksissa vain, mikäli ottelu on päättynyt pistevoittoon, eli tilanteessa, jossa kumpikaan ottelija ei ole ennen otteluajan loppumista luovuttanut tai tuomari ei ole päättänyt ottelua. Jos ottelu on päättynyt luovutukseen (lukko, kuristus, tajuttomuus) tai tuomarin päätökseen (keskeytys, diskaus) ei siihen mennessä kertyneillä pisteillä ole väliä.

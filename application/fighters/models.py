@@ -5,6 +5,7 @@ from sqlalchemy.sql import text
 class Fighter(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     name= db.Column(db.String(50), nullable=False)
+    #born
     belt =db.Column(db.String(50), nullable=False)
     club =db.Column(db.String(144))
     weight = db.Column(db.Float)

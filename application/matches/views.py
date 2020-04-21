@@ -12,10 +12,10 @@ def matches_index():
 
     to_list=[]
     for match in matches:
-        fighter1 = Fighter.find_fighter_names(match.fighter1_id,fighters)
-        fighter2 = Fighter.find_fighter_names(match.fighter2_id,fighters)
+       # fighter1 = Fighter.find_fighter_names(match.fighter1_id,fighters)
+        #fighter2 = Fighter.find_fighter_names(match.fighter2_id,fighters)
         winner= Fighter.find_fighter_names(match.winner_id,fighters)
-        to_list.append({"id": match.id, "place": match.place, "fighter1":fighter1, "fighter2":fighter2,
+        to_list.append({"id": match.id, "place": match.place, 
         "winner_id":match.winner_id, "winner":winner, "winning_category": match.winning_category, "comment":match.comment})
         
     return render_template("matches/list.html", matches = to_list)

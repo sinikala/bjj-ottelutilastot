@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
   
 {% block body %}
-<form method="POST" action="{{ url_for('add_points') }}">
+<form method="POST" action="{{ url_for('add_points', match_id=match_id, fighter1_id=fighter1_id, fighter2_id=fighter2_id) }}">
   <table>
     <div>
       <b>Lisää vielä ottelun lopulliset pisteet</b>

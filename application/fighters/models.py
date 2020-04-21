@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 class Fighter(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     name= db.Column(db.String(50), nullable=False)
-    #born
+    born= db.Column(db.Integer())
     belt =db.Column(db.String(50), nullable=False)
     club =db.Column(db.String(144))
     weight = db.Column(db.Float)
@@ -13,8 +13,9 @@ class Fighter(db.Model):
 
     
 
-    def __init__(self, name, belt, club, weight, creator_id):
+    def __init__(self, name, born, belt, club, weight, creator_id):
         self.name= name
+        self.born=born
         self.belt=belt
         self.club=club
         self.weight=weight
@@ -44,6 +45,8 @@ class Fighter(db.Model):
 
     @staticmethod
     def find_fighter_names(fighter_id, fighters):
+        if not isinstance(fighter_id, int):
+            fighter_id= int(fighter_id)
 
         for fighter in fighters:
             if fighter.id==fighter_id:

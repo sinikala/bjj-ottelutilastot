@@ -25,12 +25,13 @@ def fighters_create():
         return render_template("fighters/new.html", form = form)
 
     name=form.name.data
+    born=form.born.data
     belt = dict(form.belt.choices).get(form.belt.data)
     club= form.club.data
     weight=form.weight.data
     creator_id= current_user.id
 
-    f= Fighter(name, belt, club, weight, creator_id)
+    f= Fighter(name, born, belt, club, weight, creator_id)
     db.session().add(f)
     db.session().commit()
   
@@ -61,6 +62,7 @@ def edit_fighter(fighter_id):
     form=FighterForm(formdata=request.form, obj=fighterToEdit)
     if form.validate():
         fighterToEdit.name=form.name.data
+        fighterToEdit.born=form.born.data
         fighterToEdit.belt = dict(form.belt.choices).get(form.belt.data)
         fighterToEdit.club= form.club.data
         fighterToEdit.weight=form.weight.data

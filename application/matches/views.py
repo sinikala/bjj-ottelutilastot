@@ -9,26 +9,25 @@ from application.points.models import Points
 @app.route("/matches", methods=["GET"])
 def matches_index():
     matches = Match.query.all()
-    fighters=Fighter.query.all()
-
+    all_fighters=Fighter.query.all()
     
 
     to_list=[]
     for match in matches:
-       # fighter1 = Fighter.find_fighter_names(match.fighter1_id,fighters)
-        #fighter2 = Fighter.find_fighter_names(match.fighter2_id,fighters)
-
-        winner= Fighter.find_fighter_names(match.winner_id,fighters)
+        fighters= Match.get_fighters(match.id)
+        fighter1=fighters[0]["name"]
+        fighter2=fighters[1]["name"]
+        winner= Fighter.find_fighter_names(match.winner_id,all_fighters)
 
         if match.winning_category=='Pistevoitto':
             p=Points.get_points(match.id)
             points= "{:d}|{:d}|{:d} - {:d}|{:d}|{:d}".format(p[0]["points"], p[0]["penalties"], p[0]["advantage"], p[1]["points"], p[1]["penalties"], p[1]["advantage"])
             to_list.append({"id": match.id, "date":match.date, "place": match.place, 
-            "winner_id":match.winner_id, "winner":winner, "winning_category": match.winning_category, "comment":match.comment, "points":points})
+            "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1, "fighter2":fighter2, "winning_category": match.winning_category, "comment":match.comment, "points":points})
 
         else:
-            to_list.append({"id": match.id, "place": match.place, 
-            "winner_id":match.winner_id, "winner":winner, "winning_category": match.winning_category, "comment":match.comment})
+            to_list.append({"id": match.id, "place": match.place, "date":match.date, 
+            "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1, "fighter2":fighter2, "winning_category": match.winning_category, "comment":match.comment})
         
     return render_template("matches/list.html", matches = to_list)
 
@@ -41,7 +40,7 @@ def matches_form():
     form.fighter1.choices=names
     form.fighter2.choices=names
     return render_template("matches/new.html", form= form)
-    # url='fighters_create'
+    
 
 @app.route("/matches/<match_id>/", methods=["POST"])
 @login_required
@@ -111,7 +110,14 @@ def matches_create():
 
     db.session().add(match)
     db.session().commit()
-    
+
+    fighter= Fighter.query.get(fighter1_id)
+    match.fighters.append(fighter)
+    db.session().commit()
+
+    fighter= Fighter.query.get(fighter2_id)
+    match.fighters.append(fighter)
+    db.session().commit()
 
     if winning_category=='Pistevoitto':
         return redirect(url_for('points_form', fighter1_id=fighter1_id, fighter2_id=fighter2_id, match_id=match.id))

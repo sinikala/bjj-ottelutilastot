@@ -25,5 +25,5 @@ salasana: secret
 
 ### HUOM
 Arvon, mahdollinen, koodikatselmoija,
-Mikäli teet katselmointia ennen tämän viikon deadlinea (to 23.4.), huomaathan, että tuorein tilanne on todennäköisesti haarassa `revamp`
+Mikäli teet katselmointia ennen tämän viikon deadlinea (to 23.4.), huomaathan, että tuorein tilanne voi olla haarassa `revamp`
 Kiitos!

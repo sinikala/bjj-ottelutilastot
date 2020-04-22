@@ -49,10 +49,21 @@ class Match(db.Model):
 
         res=db.engine.execute(stmt)
 
+    
+
+    
         response=[]
+
         for row in res:
             response. append({"id":row[0], "name":row[1]})
 
         
+        if len(response)==0:
+            response. append({"id":'<POISTETTU>', "name":'<POISTETTU>'})
+            response. append({"id":'<POISTETTU>', "name":'<POISTETTU>'})
+
+        elif len(response)==1:
+            response. append({"id":'<POISTETTU>', "name":'<POISTETTU>'})
+
         return response
        

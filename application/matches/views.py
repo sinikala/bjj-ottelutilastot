@@ -11,7 +11,6 @@ def matches_index():
     matches = Match.query.all()
     all_fighters=Fighter.query.all()
     
-
     to_list=[]
     for match in matches:
         fighters= Match.get_fighters(match.id)
@@ -62,6 +61,10 @@ def match_toggle_winner(match_id):
 @login_required
 def match_remove_match(match_id):
     match_to_delete = Match.query.get(match_id)
+
+    for fighter in match_to_delete.fighters:
+        match_to_delete.fighters.remove(fighter)
+        db.session().commit()
     
     if match_to_delete.points:
         for points in match_to_delete.points:

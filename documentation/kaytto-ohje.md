@@ -1,10 +1,10 @@
-## Sovelluksen asennus- ja käyttöohjeet
-#### Asennus
+# Sovelluksen asennus- ja käyttöohjeet
+## Asennus
 
 1. Paikallisesti
     - Lataa sovellus osoitteesta https://github.com/sinikala/bjj-ottelutilastot.
     - Tarvitset tuen Python-kielisten ohjelmien suorittamiseen, vähintään Pythonin versio 3.5. 
-     - Kaikki sovelluksen riippuvuudet löytyvät tiedostosta 'requiremments.txt'. Asenna ne. Asentamiseen tarvitset pip-paketinhallintatyökalun Pythonille. Tämä asentuu yleensä automaattiseti Pythonin mukana. Lisäksi suositellaan, että käytössä on Pythonin virtuaalinen ympäristö (kuten venv) asennettaessa riippuvuuksia. 
+     - Kaikki sovelluksen riippuvuudet löytyvät tiedostosta 'requirements.txt'. Asenna ne. Asentamiseen tarvitset pip-paketinhallintatyökalun Pythonille. Tämä asentuu yleensä automaattiseti Pythonin mukana. Lisäksi suositellaan, että käytössä on Pythonin virtuaalinen ympäristö (kuten venv) asennettaessa riippuvuuksia. 
     -Suorita komento `python3 run.py` projektin juuressa.
     Sovelluksen pitäisi nyt käynnistyä ja pääset tarkastelemaan sitä menemällä selaimellasi osoiteeseen `localhost:5000`
 
@@ -20,49 +20,62 @@
 
 
 
-#### Käyttö
+## Käyttö
 
 Sovelluksen peruspalveluja voi käyttää kuka tahansa.
 Sovelluksen jokaisen sivun yläpalkista löydät linkit kaikkiin käytössäsi oleviin palveluihin. 
 
-##### Kaikille käytössä olevat palvelut
+#### Kaikille käytössä olevat palvelut
 - Otteluiden tarkastelu
+
 **Ottelut**-sivulla näet listauksen kaikista palveluun tallennetuista otteluista.
 
 - Otteluiden rajaus
-Tulossa: 
+
+Tulossa:
+
 Voit rajata tuloksia valitsemalla listauksen yläreunassa näkyvistä rajausehdoista mieleiset ja painamalla 'hae'. Filtterit voi nollata napista 'nollaa'.
 
 - Ottelijoiden tarkastelu
+
 **Ottelijat**-sivulla näet listauksen kaikista palveluun tallennetuista ottelijoista.
 
 - Ottelijoiden rajaus
+
 Tulossa: 
+
 Voit rajata tuloksia valitsemalla listauksen yläreunassa näkyvistä rajausehdoista mieleiset ja painamalla 'hae'. Filtterit voi nollata napista 'nollaa'.
 
 - Yksittäisen ottelijan tarkastelu
+
 Painamalla *Ottelijat*-sivullla yksittäisen ottelijan kohdalta 'profiili'-nappia, pääset tarkastelemaan hänen tarkempia tietojaan. 'Takaisin' napista pääset takaisin listaukseen.
 
 
 
-##### Moderaattoreiden käytössä olevat palvelut
+#### Moderaattoreiden käytössä olevat palvelut
 - Rekisteröityminen
+
 Mikäli mielit tulospalvelun moderaattoriksi, tulee sinun luoda tunnukset sovellukseen **Rekisteröidy**-sivulla. Käyttäjänimesi on oltava uniikki.
 
-Tulossa: Voidaksesi rekisteröityä moderaattoriksi tarvitset tunnusavaimen, jonka saat aiemmilta moderaattoreilta (`berimbolo`)
+Tulossa: 
+
+Voidaksesi rekisteröityä moderaattoriksi tarvitset tunnusavaimen, jonka saat aiemmilta moderaattoreilta (`berimbolo`)
 
 Rekisteröitymisen jälkeen ohjaudut suoraan sisäänkirjautumisnäkymään.
 
 - Kirjautuminen & uloskirjautuminen
+
 Löydät linkin sisään- ja uloskirjautumiseen aina sivun oikeasta yläreunasta
 
-##### Seuraavat moderaattorin käytössä olevat palvelut edellyttävät sisäänkirjautumista
+#### Seuraavat moderaattorin käytössä olevat palvelut edellyttävät sisäänkirjautumista
 
 - Ottelijan lisäys
+
 **Lisää ottelija** -sivulla
 
 - Ottelun lisäys
-*Lisää ottelu*-sivulla
+
+**Lisää ottelu**-sivulla
 otteluun liittyvät ottelijat tulee lisätä palveluun ennen ottelun lisäystä
 
 - Voittajan muokkaus

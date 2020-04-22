@@ -1,5 +1,5 @@
 # Sovelluksen asennus- ja käyttöohjeet
-## Asennus
+# Asennus
 
 1. Paikallisesti
     - Lataa sovellus osoitteesta https://github.com/sinikala/bjj-ottelutilastot.
@@ -20,40 +20,40 @@
 
 
 
-## Käyttö
+# Käyttö
 
 Sovelluksen peruspalveluja voi käyttää kuka tahansa.
 Sovelluksen jokaisen sivun yläpalkista löydät linkit kaikkiin käytössäsi oleviin palveluihin. 
 
-#### Kaikille käytössä olevat palvelut
-- Otteluiden tarkastelu
+## Kaikille käytössä olevat palvelut
+### Otteluiden tarkastelu
 
 **Ottelut**-sivulla näet listauksen kaikista palveluun tallennetuista otteluista.
 
-- Otteluiden rajaus
+### Otteluiden rajaus
 
 Tulossa:
 
 Voit rajata tuloksia valitsemalla listauksen yläreunassa näkyvistä rajausehdoista mieleiset ja painamalla 'hae'. Filtterit voi nollata napista 'nollaa'.
 
-- Ottelijoiden tarkastelu
+### Ottelijoiden tarkastelu
 
 **Ottelijat**-sivulla näet listauksen kaikista palveluun tallennetuista ottelijoista.
 
-- Ottelijoiden rajaus
+### Ottelijoiden rajaus
 
 Tulossa: 
 
 Voit rajata tuloksia valitsemalla listauksen yläreunassa näkyvistä rajausehdoista mieleiset ja painamalla 'hae'. Filtterit voi nollata napista 'nollaa'.
 
-- Yksittäisen ottelijan tarkastelu
+### Yksittäisen ottelijan tarkastelu
 
 Painamalla *Ottelijat*-sivullla yksittäisen ottelijan kohdalta 'profiili'-nappia, pääset tarkastelemaan hänen tarkempia tietojaan. 'Takaisin' napista pääset takaisin listaukseen.
 
 
 
-#### Moderaattoreiden käytössä olevat palvelut
-- Rekisteröityminen
+## Moderaattoreiden käytössä olevat palvelut
+### Rekisteröityminen
 
 Mikäli mielit tulospalvelun moderaattoriksi, tulee sinun luoda tunnukset sovellukseen **Rekisteröidy**-sivulla. Käyttäjänimesi on oltava uniikki.
 
@@ -63,28 +63,28 @@ Voidaksesi rekisteröityä moderaattoriksi tarvitset tunnusavaimen, jonka saat a
 
 Rekisteröitymisen jälkeen ohjaudut suoraan sisäänkirjautumisnäkymään.
 
-- Kirjautuminen & uloskirjautuminen
+### Kirjautuminen & uloskirjautuminen
 
 Löydät linkin sisään- ja uloskirjautumiseen aina sivun oikeasta yläreunasta
 
-#### Seuraavat moderaattorin käytössä olevat palvelut edellyttävät sisäänkirjautumista
+## Seuraavat moderaattorin käytössä olevat palvelut edellyttävät sisäänkirjautumista
 
-- Ottelijan lisäys
+### Ottelijan lisäys
 
 **Lisää ottelija** -sivulla
 
-- Ottelun lisäys
+### Ottelun lisäys
 
 **Lisää ottelu**-sivulla
 otteluun liittyvät ottelijat tulee lisätä palveluun ennen ottelun lisäystä
 
-- Voittajan muokkaus
+### Voittajan muokkaus
 
-- Ottelun poisto
+### Ottelun poisto
 
-- Ottelijan poisto
+### Ottelijan poisto
 
-- Ottelijan muokkaus
+### Ottelijan muokkaus
 
 
     

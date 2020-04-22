@@ -51,7 +51,8 @@ class Fighter(db.Model):
         for fighter in fighters:
             if fighter.id==fighter_id:
                 return fighter.name
-
+        
+        return '<POISTETTU>'
             
         #else:
          #   stmt= text("SELECT Fighter.name FROM Fighter"

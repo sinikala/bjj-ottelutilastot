@@ -1,5 +1,14 @@
 from application import db
+from sqlalchemy import Table, Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy.sql import text
+
+
+matchpoints = db.Table('matchpoints', 
+            db.Column('match_id', db.Integer, db.ForeignKey('match.id'), nullable=False),
+            db.Column('points_id', db.Integer, db.ForeignKey('points.id'), nullable=False))    
+       
+
 
 class Match(db.Model):
     id=db.Column(db.Integer, primary_key=True)
@@ -12,6 +21,7 @@ class Match(db.Model):
     comment=db.Column(db.String(244))
     creator_id= db.Column(db.Integer, db.ForeignKey('account.id'), nullable= False)
 
+    points=db.relationship('Points', secondary=matchpoints, backref='match')
    
 
     def __init__(self, place, winning_category, fighter1_id, fighter2_id, winner_id, comment, creator_id):
@@ -24,8 +34,4 @@ class Match(db.Model):
         self.comment=comment
         self.creator_id=creator_id
 
-       
-
-
-    
        

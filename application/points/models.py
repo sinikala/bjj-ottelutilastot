@@ -15,3 +15,19 @@ class Points(db.Model):
         self.penalties =penalties
         self.advantage=advantage
         self.fighter_id = fighter_id
+
+
+    @staticmethod
+    def get_points(match_id):
+        stmt= text("SELECT points, penalties, advantage FROM Points "
+                   + "LEFT JOIN matchpoints ON matchpoints.points_id = Points.id "
+                   + "WHERE matchpoints.match_id = :id").params(id=match_id)
+
+        res=db.engine.execute(stmt)
+
+        response=[]
+        for row in res:
+            response. append({"points":row[0], "penalties":row[1], "advantage":row[2]})
+
+        
+        return response

@@ -59,8 +59,11 @@ def add_points():
     db.session().add(points_fighter2)
     db.session().commit()
 
-    return redirect(url_for("matches_index"))
-    #match.points.append(points_fighter1)
-    #match.points.append(points_fighter2)
 
-    #db.session().commit()
+    match.points.append(points_fighter1)
+    db.session().commit()
+    match.points.append(points_fighter2)
+    db.session().commit()
+
+    return redirect(url_for("matches_index"))
+    

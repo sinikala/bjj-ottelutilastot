@@ -9,6 +9,7 @@
       <th>Voittaja</th>
       <th>Voittokategoria</th>
       <th>Lisätietoja</th>
+      <th>Pisteet </th>
       <th></th>
       
     </tr>
@@ -20,6 +21,11 @@
       <td><b>{{ match.winner }}</b></td>
       <td>{{ match.winning_category }}</td>
       <td>{{ match.comment }}</td>
+      {% if match.points  %}
+      <td>{{ match.points }} </td>
+      {% else %}
+        <td></td>
+      {% endif %}
       {% if current_user.is_authenticated %}
       <td>
         <form method="POST" action="{{ url_for('match_toggle_winner', match_id=match.id) }}">

@@ -24,7 +24,8 @@ class Match(db.Model):
     points=db.relationship('Points', secondary=matchpoints, backref='match')
    
 
-    def __init__(self, place, winning_category, fighter1_id, fighter2_id, winner_id, comment, creator_id):
+    def __init__(self, date, place, winning_category, fighter1_id, fighter2_id, winner_id, comment, creator_id):
+        self.date=date
         self.place = place
         self.winning_category= winning_category
         self.winner_id=winner_id

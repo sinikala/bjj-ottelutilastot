@@ -1,8 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, validators, IntegerField, SelectField, RadioField, FormField
 from wtforms.validators import InputRequired, NumberRange
+from wtforms.fields.html5 import DateField
 
 class MatchForm(FlaskForm):
+    date = DateField("Pvm", format ='%Y-%m-%d')
     place = StringField("Paikka", [validators.Length(min=3, max=50)])
     fighter1 = SelectField("Ottelija 1", coerce=int)
     fighter2 = SelectField("Ottelija 2", coerce=int)

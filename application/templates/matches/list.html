@@ -3,6 +3,7 @@
 {% block body %}
   <table>
     <tr>
+      <th>Pvm</th>
       <th>Paikka</th>
       <th>Ottelija 1</th>
       <th>Ottelija 2</th>
@@ -15,6 +16,7 @@
     </tr>
     {% for match in matches %}
     <tr>
+      <td>{{ match.date }}</td>
       <td>{{ match.place }}</td>
       <td></td>
       <td></td>

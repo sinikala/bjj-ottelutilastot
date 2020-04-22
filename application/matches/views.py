@@ -23,7 +23,7 @@ def matches_index():
         if match.winning_category=='Pistevoitto':
             p=Points.get_points(match.id)
             points= "{:d}|{:d}|{:d} - {:d}|{:d}|{:d}".format(p[0]["points"], p[0]["penalties"], p[0]["advantage"], p[1]["points"], p[1]["penalties"], p[1]["advantage"])
-            to_list.append({"id": match.id, "place": match.place, 
+            to_list.append({"id": match.id, "date":match.date, "place": match.place, 
             "winner_id":match.winner_id, "winner":winner, "winning_category": match.winning_category, "comment":match.comment, "points":points})
 
         else:
@@ -62,9 +62,14 @@ def match_toggle_winner(match_id):
 @app.route("/matches/<match_id>", methods=["DELETE", "GET"])
 @login_required
 def match_remove_match(match_id):
+    match_to_delete = Match.query.get(match_id)
+    
+    if match_to_delete.points:
+        for points in match_to_delete.points:
+            match_to_delete.points.remove(points)
+            db.session().commit()
 
-    matchToDelete = Match.query.get(match_id)
-    db.session().delete(matchToDelete)
+    db.session().delete(match_to_delete)
     db.session().commit()
   
     return redirect(url_for("matches_index"))
@@ -84,6 +89,7 @@ def matches_create():
         return render_template("matches/new.html", form = form)
 
     winning_category = dict(form.winning_category.choices).get(form.winning_category.data)
+    date=form.date.data
     place = form.place.data
     fighter1_id =form.fighter1.data
     fighter2_id =form.fighter2.data
@@ -100,11 +106,8 @@ def matches_create():
 
     comment= form.comment.data
     creator_id= current_user.id
-    
-    
-
        
-    match = Match(place, winning_category, fighter1_id, fighter2_id, winner_id, comment, creator_id)
+    match = Match(date, place, winning_category, fighter1_id, fighter2_id, winner_id, comment, creator_id)
 
     db.session().add(match)
     db.session().commit()

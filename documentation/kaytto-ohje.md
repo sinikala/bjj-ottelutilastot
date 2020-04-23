@@ -28,7 +28,7 @@ Sovelluksen jokaisen sivun yläpalkista löydät linkit kaikkiin käytössäsi o
 ## 1. Kaikille käytössä olevat palvelut
 ### Otteluiden tarkastelu
 
-**Ottelut**-sivulla näet listauksen kaikista palveluun tallennetuista otteluista.
+Ottelut-sivulla näet listauksen kaikista palveluun tallennetuista otteluista.
 
 ### Otteluiden rajaus
 
@@ -38,7 +38,7 @@ Voit rajata tuloksia valitsemalla listauksen yläreunassa näkyvistä rajausehdo
 
 ### Ottelijoiden tarkastelu
 
-**Ottelijat**-sivulla näet listauksen kaikista palveluun tallennetuista ottelijoista.
+Ottelijat-sivulla näet listauksen kaikista palveluun tallennetuista ottelijoista.
 
 ### Ottelijoiden rajaus
 
@@ -48,14 +48,14 @@ Voit rajata tuloksia valitsemalla listauksen yläreunassa näkyvistä rajausehdo
 
 ### Yksittäisen ottelijan tarkastelu
 
-Painamalla *Ottelijat*-sivullla yksittäisen ottelijan kohdalta 'profiili'-nappia, pääset tarkastelemaan hänen tarkempia tietojaan. 'Takaisin' napista pääset takaisin listaukseen.
+Painamalla Ottelijat-sivullla yksittäisen ottelijan kohdalta 'profiili'-nappia, pääset tarkastelemaan hänen tarkempia tietojaan. 'Takaisin' napista pääset takaisin listaukseen.
 
 
 
 ## 2a.Moderaattoreiden käytössä olevat palvelut
 ### Rekisteröityminen
 
-Mikäli mielit tulospalvelun moderaattoriksi, tulee sinun luoda tunnukset sovellukseen **Rekisteröidy**-sivulla. Käyttäjänimesi on oltava uniikki.
+Mikäli mielit tulospalvelun moderaattoriksi, tulee sinun luoda tunnukset sovellukseen Rekisteröidy-sivulla. Käyttäjänimesi on oltava uniikki.
 Voidaksesi rekisteröityä moderaattoriksi tarvitset rekisteröitymisavaimen, jonka saat aiemmilta moderaattoreilta. (`berimbolo`)
 
 Rekisteröitymisen jälkeen ohjaudut suoraan sisäänkirjautumisnäkymään.
@@ -68,11 +68,11 @@ Löydät linkin sisään- ja uloskirjautumiseen aina sivun oikeasta yläreunasta
 
 ### Ottelijan lisäys
 
-**Lisää ottelija** -sivulla
+Lisää ottelija -sivulla
 
 ### Ottelun lisäys
 
-**Lisää ottelu**-sivulla
+Lisää ottelu -sivulla
 otteluun liittyvät ottelijat tulee lisätä palveluun ennen ottelun lisäystä
 
 ### Voittajan muokkaus

@@ -45,7 +45,7 @@ def matches_form():
 @login_required
 def match_toggle_winner(match_id):
 
-    m = Match.query.get(match_id)
+    m = Match.query.get_or_404(match_id)
     
     if (m.winner_id==m.fighter1_id):
         m.winner_id=m.fighter2_id
@@ -60,7 +60,7 @@ def match_toggle_winner(match_id):
 @app.route("/matches/<match_id>", methods=["DELETE", "GET"])
 @login_required
 def match_remove_match(match_id):
-    match_to_delete = Match.query.get(match_id)
+    match_to_delete = Match.query.get_or_404(match_id)
 
     for fighter in match_to_delete.fighters:
         match_to_delete.fighters.remove(fighter)
@@ -114,11 +114,11 @@ def matches_create():
     db.session().add(match)
     db.session().commit()
 
-    fighter= Fighter.query.get(fighter1_id)
+    fighter= Fighter.query.get_or_404(fighter1_id)
     match.fighters.append(fighter)
     db.session().commit()
 
-    fighter= Fighter.query.get(fighter2_id)
+    fighter= Fighter.query.get_or_404(fighter2_id)
     match.fighters.append(fighter)
     db.session().commit()
 

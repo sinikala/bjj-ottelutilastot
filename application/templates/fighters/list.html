@@ -3,12 +3,41 @@
 
 {% block body %}
 <h2>Ottelijat</h2>
+</br>
+<form method="GET" action="{{ url_for('fighters_search') }}">
+  <table>
+    <tr>
+      <td>
+        {{ form.searchword.label}}
+      </td>
+      <td>
+        {{ form.searchword }}
+      </td>
+      <td>
+        <input type="submit" value="Hae"/>
+      </td>
+      <td>
+        <ul>
+          {% for error in form.searchword.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </table>
+</form>
+<form method="GET" action="{{ url_for('fighters_index') }}">
+  <input type="submit" value="Nollaa"/>
+</form>
+
+
+
+</br>
   <table>
     <tr>
       <th>Nimi</th>
       <th>Vyöarvo</th>
-      <th>Kotiseura</th>
-      
+      <th>Kotiseura</th>   
     </tr>
     {% for fighter in fighters %}
     <tr>
@@ -19,7 +48,7 @@
         <form method="GET" action="{{ url_for('fighter_info', fighter_id=fighter.id) }}">
             <input type="submit" value="Profiili"/>
         </form>
-        </td>    
+      </td>    
     </tr>
     {% endfor %}
   </table>

@@ -53,15 +53,21 @@ class Fighter(db.Model):
                 return fighter.name
         
         return '<POISTETTU>'
-            
-        #else:
-         #   stmt= text("SELECT Fighter.name FROM Fighter"
-          #          " WHERE Fighter.id = :id").params(id=fighter_id)
-        #
-         #   res= db.engine.execute(stmt)
-          #  response=[]
-           # for row in res:
-                #response.append({"name":row[0]})
-            #    return row[0]
-            #return response
 
+
+
+
+
+    @staticmethod
+    def search_by_name(search_by):
+
+        searchword = "%{}%".format(search_by.lower())
+        stmt= text("SELECT * FROM Fighter"
+                   " WHERE Fighter.name LIKE :searchword").params(searchword=searchword)
+        
+        res= db.engine.execute(stmt)
+        response=[]
+        for row in res:
+            response.append({"id":row[0], "name":row[1], "born":row[2], "belt":row[3]})
+                
+        return response

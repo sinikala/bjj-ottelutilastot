@@ -2,12 +2,12 @@ from application import app, db
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from application.fighters.models import Fighter
-from application.fighters.forms import FighterForm
+from application.fighters.forms import FighterForm, SearchForm, FilterForm
 
 
 @app.route("/fighters", methods=["GET"])
 def fighters_index():
-    return render_template("fighters/list.html", fighters= Fighter.query.all())
+    return render_template("fighters/list.html", fighters= Fighter.query.all(), form=SearchForm())
 
 
 @app.route("/fighters/new/")
@@ -40,7 +40,7 @@ def fighters_create():
 @app.route("/fighters/<fighter_id>", methods=["GET"])
 def fighter_info(fighter_id):
 
-    fighter = Fighter.query.get(fighter_id)
+    fighter = Fighter.query.get_or_404(fighter_id)
     history= Fighter.get_match_history(fighter_id)
     
     return render_template("fighters/fighter.html", fighter=fighter, history=history)
@@ -48,7 +48,7 @@ def fighter_info(fighter_id):
 @app.route("/fighters/edit/<fighter_id>", methods=["GET"])
 @login_required
 def fighters_editform(fighter_id):
-    fighterToEdit = Fighter.query.get(fighter_id)
+    fighterToEdit = Fighter.query.get_or_404(fighter_id)
 
     form=FighterForm(formdata=request.form, obj=fighterToEdit)
     return render_template("fighters/edit_fighter.html", form= form, fighter_id=fighter_id)
@@ -57,7 +57,7 @@ def fighters_editform(fighter_id):
 @login_required
 def edit_fighter(fighter_id):
 
-    fighterToEdit = Fighter.query.get(fighter_id)
+    fighterToEdit = Fighter.query.get_or_404(fighter_id)
 
     form=FighterForm(formdata=request.form, obj=fighterToEdit)
     if form.validate():
@@ -76,8 +76,24 @@ def edit_fighter(fighter_id):
 @login_required
 def remove_fighter(fighter_id):
 
-    fighterToDelete = Fighter.query.get(fighter_id)
+    fighterToDelete = Fighter.query.get_or_404(fighter_id)
     db.session().delete(fighterToDelete)
     db.session().commit()
   
     return redirect(url_for("fighters_index"))
+
+
+@app.route("/fighters/search", methods=["GET"])
+def fighters_search():
+
+    form=SearchForm(request.form)
+    search_by =request.args.get('searchword')
+
+    if len(search_by)==0:
+        return redirect(url_for("fighters_index"))
+
+    qry = db.session().query(Fighter).filter(
+                Fighter.name.contains(search_by))
+    results= qry.all()
+
+    return render_template("fighters/list.html", fighters= results, form=SearchForm())

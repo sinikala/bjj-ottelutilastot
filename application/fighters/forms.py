@@ -18,3 +18,22 @@ class FighterForm(FlaskForm):
         csrf = False
 
 
+
+
+
+class FilterForm(FlaskForm):
+    by_club= SelectField("Seura", coerce=int)
+    by_belt= SelectField("Vyötaso", coerce=int)
+    
+    class Meta:
+        csrf=False
+
+
+
+class SearchForm(FlaskForm):
+    searchword= StringField("Hae nimellä")
+
+
+    class Meta:
+        csrf=False
+

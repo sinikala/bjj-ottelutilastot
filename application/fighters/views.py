@@ -7,7 +7,12 @@ from application.fighters.forms import FighterForm, SearchForm, FilterForm
 
 @app.route("/fighters", methods=["GET"])
 def fighters_index():
-    return render_template("fighters/list.html", fighters= Fighter.query.all(), form=SearchForm())
+    filterform=FilterForm()
+    filterform.by_club.choices=Fighter.get_clubs()
+    belt_filter= dict(filterform.by_belt.choices).get(filterform.by_belt.data)
+    club_filter= dict(filterform.by_club.choices).get(filterform.by_club.data)
+
+    return render_template("fighters/list.html", fighters= Fighter.query.all(), searchform=SearchForm(), filterform=filterform)
 
 
 @app.route("/fighters/new/")
@@ -85,8 +90,9 @@ def remove_fighter(fighter_id):
 
 @app.route("/fighters/search", methods=["GET"])
 def fighters_search():
+    filterform=FilterForm()
+    filterform.by_club.choices=clubs=Fighter.get_clubs()
 
-    form=SearchForm(request.form)
     search_by =request.args.get('searchword')
 
     if len(search_by)==0:
@@ -96,4 +102,27 @@ def fighters_search():
                 Fighter.name.contains(search_by))
     results= qry.all()
 
-    return render_template("fighters/list.html", fighters= results, form=SearchForm())
+    return render_template("fighters/list.html", fighters= results, searchform=SearchForm(),
+                    filterform=filterform)
+
+
+
+@app.route("/fighters/filter", methods=["GET"])
+def fighters_filter():
+    
+    filterform=FilterForm(request.form)
+    clubs=Fighter.get_clubs()
+    filterform.by_club.choices=clubs
+
+    belt = request.args.get('by_belt')
+    club = request.args.get('by_club')
+
+
+    if (belt != '-1' or club != '-1'):
+        fighters=Fighter.filter_fighters(belt, club, clubs)
+        return render_template("fighters/list.html", fighters=fighters, searchform=SearchForm(),
+                    filterform=filterform)
+    else:
+       return redirect(url_for("fighters_index")) 
+
+    

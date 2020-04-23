@@ -54,20 +54,45 @@ class Fighter(db.Model):
         
         return '<POISTETTU>'
 
-
-
-
-
     @staticmethod
-    def search_by_name(search_by):
+    def filter_fighters(belt, club, clubs):
 
-        searchword = "%{}%".format(search_by.lower())
-        stmt= text("SELECT * FROM Fighter"
-                   " WHERE Fighter.name LIKE :searchword").params(searchword=searchword)
+        club_filter=''
+        for c in clubs:
+            if int(c[0])==int(club):
+                club_filter=c[1]
+
+        if belt == '-1':
+            stmt= text("SELECT * FROM Fighter"
+                  + " WHERE Fighter.club=:searchword").params(searchword=club_filter)
+
+        elif club == '-1':
+            
+            stmt= text("SELECT * FROM Fighter"
+                   + " WHERE Fighter.belt=:searchword").params(searchword=belt)
+        else:
+            stmt= text("SELECT * FROM Fighter"
+                   + " WHERE Fighter.club=:club"
+                   + " AND Fighter.belt=:belt").params(club=club_filter, belt=belt)
+        
         
         res= db.engine.execute(stmt)
         response=[]
         for row in res:
-            response.append({"id":row[0], "name":row[1], "born":row[2], "belt":row[3]})
-                
+            response.append({"id":row[0], "name":row[1], "born":row[2], "belt":row[3], 
+                "club":row[4], "weight":row[5]})
+
         return response
+
+
+    @staticmethod
+    def get_clubs():
+        
+        query = db.session().query(Fighter.club.distinct().label("club"))
+        clubs_in_db = [row.club for row in query.all()]
+        clubs_in_db.sort()
+        club_choices=[('-1', 'Valitse seura')]
+        for club in enumerate(clubs_in_db):
+            club_choices.append(club)
+        
+        return club_choices

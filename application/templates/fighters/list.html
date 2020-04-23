@@ -4,21 +4,21 @@
 {% block body %}
 <h2>Ottelijat</h2>
 </br>
-<form method="GET" action="{{ url_for('fighters_search') }}">
+<form method="GET" action="{{ url_for('fighters_search', clubs=clubs) }}">
   <table>
     <tr>
       <td>
-        {{ form.searchword.label}}
+        {{ searchform.searchword.label}}
       </td>
       <td>
-        {{ form.searchword }}
+        {{ searchform.searchword }}
       </td>
       <td>
         <input type="submit" value="Hae"/>
       </td>
       <td>
         <ul>
-          {% for error in form.searchword.errors %}
+          {% for error in searchform.searchword.errors %}
           <li>{{ error }}</li>
           {% endfor %}
         </ul>
@@ -26,8 +26,29 @@
     </tr>
   </table>
 </form>
+
+<b>TAI</b>
+
+<form method="GET" action="{{ url_for('fighters_filter') }}">
+  <table>
+    <tr>
+      <td>Rajaa tuloksia </td>
+      <td>
+        {{ filterform.by_belt}}
+      </td>
+      <td>
+        {{ filterform.by_club }}
+      </td>
+      <td>
+        <input type="submit" value="Hae"/>
+      </td>
+    </tr>
+  </table>
+</form>
+
+</br>
 <form method="GET" action="{{ url_for('fighters_index') }}">
-  <input type="submit" value="Nollaa"/>
+  <input type="submit" value="Nollaa kaikki"/>
 </form>
 
 
@@ -39,6 +60,7 @@
       <th>Vyöarvo</th>
       <th>Kotiseura</th>   
     </tr>
+    {% if fighters %}
     {% for fighter in fighters %}
     <tr>
       <td>{{ fighter.name }}</td>
@@ -51,5 +73,6 @@
       </td>    
     </tr>
     {% endfor %}
+    {% endif %}
   </table>
 {% endblock %}

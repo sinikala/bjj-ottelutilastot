@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+<h2>Rekisteröityminen</h2>
+<b>Tämä palvelu on käytössä vain ylläpidolle</b>
+<p>{{ error }}</p>
 <form method="POST" action="{{ url_for('auth_register') }}">
   <table>
     <tr>
@@ -55,6 +57,21 @@
       </td>
       <td>
         {{ form.confirm }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+	    {{ form.registrationkey.label }}
+      </td>
+      <td>
+	    {{ form.registrationkey }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.registrationkey.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
       </td>
     </tr>
     <tr>

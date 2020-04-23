@@ -16,6 +16,7 @@ class RegisterForm(FlaskForm):
     password = PasswordField("Salasana",[validators.Length(min=5, max=144),
     validators.EqualTo('confirm', message='Salasanojen tulee täsmätä')])
     confirm = PasswordField("Toista salasana")
+    registrationkey=PasswordField("Rekisteröitymisavain", [validators.Regexp('^berimbolo$', message='Väärä avain' )])
 
     class Meta:
         csrf = False

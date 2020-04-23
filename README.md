@@ -19,9 +19,12 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
 
 #### [Sovellus Herokussa](https://bjj-ottelutilastot.herokuapp.com/)
 
-Herokussa voit luoda omat käyttäjätunnuksesi tai kirjautua suoraan sisään testitunnuksilla
+Herokussa voit luoda omat käyttäjätunnuksesi tai kirjautua suoraan sisään testitunnuksilla:
 
 käyttäjänimi: root
 salasana: secret
+
+
+Luodaksesi omat tunnukset, tarvitset rekisteröitymisavaimen `berimbolo`
 
 

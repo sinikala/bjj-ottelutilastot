@@ -2,6 +2,8 @@
 {import "bootstrap/wtf.html" as wtf %}
   
 {% block body %}
+<h2>Lisää uusi ottelija</h2>
+</br>
 <form method="POST" action="{{url_for('fighters_create')}}">
   <table>
     <tr>
@@ -71,6 +73,12 @@
           {% endfor %}
         </ul>
       </td>
+    </tr>
+    <tr>
+      <td>
+         
+      </td>
+      <td>Jos paino ei ole tiedossa, merkitse 0.</td>
     </tr>
     <tr>
       <td colspan="2">

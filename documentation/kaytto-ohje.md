@@ -25,7 +25,7 @@
 Sovelluksen peruspalveluja voi käyttää kuka tahansa.
 Sovelluksen jokaisen sivun yläpalkista löydät linkit kaikkiin käytössäsi oleviin palveluihin. 
 
-## Kaikille käytössä olevat palvelut
+## 1. Kaikille käytössä olevat palvelut
 ### Otteluiden tarkastelu
 
 **Ottelut**-sivulla näet listauksen kaikista palveluun tallennetuista otteluista.
@@ -52,14 +52,11 @@ Painamalla *Ottelijat*-sivullla yksittäisen ottelijan kohdalta 'profiili'-nappi
 
 
 
-## Moderaattoreiden käytössä olevat palvelut
+## 2a.Moderaattoreiden käytössä olevat palvelut
 ### Rekisteröityminen
 
 Mikäli mielit tulospalvelun moderaattoriksi, tulee sinun luoda tunnukset sovellukseen **Rekisteröidy**-sivulla. Käyttäjänimesi on oltava uniikki.
-
-Tulossa: 
-
-Voidaksesi rekisteröityä moderaattoriksi tarvitset tunnusavaimen, jonka saat aiemmilta moderaattoreilta (`berimbolo`)
+Voidaksesi rekisteröityä moderaattoriksi tarvitset rekisteröitymisavaimen, jonka saat aiemmilta moderaattoreilta. (`berimbolo`)
 
 Rekisteröitymisen jälkeen ohjaudut suoraan sisäänkirjautumisnäkymään.
 
@@ -67,7 +64,7 @@ Rekisteröitymisen jälkeen ohjaudut suoraan sisäänkirjautumisnäkymään.
 
 Löydät linkin sisään- ja uloskirjautumiseen aina sivun oikeasta yläreunasta
 
-## Seuraavat moderaattorin käytössä olevat palvelut edellyttävät sisäänkirjautumista
+## 2b. Moderaattoreiden sisäänkirjautumista edellyttävät palvelut
 
 ### Ottelijan lisäys
 

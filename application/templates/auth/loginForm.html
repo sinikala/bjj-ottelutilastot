@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+<h2>Sisäänkirjautuminen</h2>
+<b>Tämä palvelu on käytössä vain ylläpidolle</b>
+<p>{{ error }}</p>
 <form method="POST" action="{{ url_for('auth_login') }}">
   <table>
     <tr>

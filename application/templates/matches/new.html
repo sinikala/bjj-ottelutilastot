@@ -1,11 +1,14 @@
 {% extends "layout.html" %}
   
 {% block body %}
+<h2>Lisää uusi ottelu</h2>
+<div>
+  Jos haluamaasi ottelijaa ei löydy listasta, voit lisätä hänet tietokantaan Lisää ottelija -sivulta.
+  Pistevoitto-ottelun pistetaulukko avautuu muiden tietojen tallennuksen jälkeen.
+</div>
+</br>
 <form method="POST" action="{{ url_for('matches_create') }}">
   <table>
-    <div>
-      Jos haluamaasi ottelijaa ei löydy listasta, voit lisätä hänet tietokantaan Lisää ottelija -sivulta.
-    </div>
     <tr>
       <td>
         {{ form.date.label }}

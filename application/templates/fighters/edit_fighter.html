@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
   
 {% block body %}
+<h2>Tietojen muokkaus</h2>
 <form method="POST" action="{{url_for('edit_fighter', fighter_id=fighter_id)}}">
   <table>
     <tr>

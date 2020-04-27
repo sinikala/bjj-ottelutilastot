@@ -6,7 +6,7 @@ Käyttäjä voi palvelun avulla tarkastella toteutuneiden BJJ-otteluiden tuloksi
 
 Palvelu kertoo otteluista seuraavat tiedot: aika, paikka, ottelijat, ottelutaso (valko-/väri-/mustavöiset), painoluokka, voittaja ja voittotyyppi (luovutus-, pistevoitto tai tuomarin päätös). Mikäli ottelu on päättynyt pistevoitolla, näytetään myös kyseisen ottelun lopulliset pisteet.
 
-Tulostilastoja voi rajata eri ominaisuuksien, kuten seura, voittotyyppi tai ottelija (tulossa). Myös ottelijoita voi hakea esim. seuran perusteella ja tarkastella kunkin ottelijan henkilökohtaisia tilastoja.
+Tulostilastoja voi rajata eri ominaisuuksien, kuten seura, voittotyyppi tai ottelija (tulossa) perusteella. Myös ottelijoita voi hakea esim. seuran perusteella ja tarkastella kunkin ottelijan henkilökohtaisia tilastoja.
 
 Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä uusia ottelijoita ja muokata tietoja. 
 

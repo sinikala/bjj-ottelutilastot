@@ -1,5 +1,5 @@
 from application import db
-from sqlalchemy import Table, Column, Integer, ForeignKey
+from sqlalchemy import Table, Column, Integer, ForeignKey, select
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.sql import text
 
@@ -43,27 +43,45 @@ class Match(db.Model):
 
     @staticmethod
     def get_fighters(match_id):
-        stmt= text("SELECT id, name FROM Fighter "
+        stmt= text("SELECT id, name, belt FROM Fighter "
                    + "LEFT JOIN matchfighter ON matchfighter.fighter_id = Fighter.id "
                    + "WHERE matchfighter.match_id = :id").params(id=match_id)
 
         res=db.engine.execute(stmt)
-
-    
-
-    
         response=[]
 
         for row in res:
-            response. append({"id":row[0], "name":row[1]})
+            response.append({"id":row[0], "name":row[1], "belt":row[2]})
 
         
         if len(response)==0:
-            response. append({"id":'<POISTETTU>', "name":'<POISTETTU>'})
-            response. append({"id":'<POISTETTU>', "name":'<POISTETTU>'})
+            response. append({"id":'<POISTETTU>', "name":'<POISTETTU>', "belt":'<POISTETTU>'})
+            response. append({"id":'<POISTETTU>', "name":'<POISTETTU>', "belt":'<POISTETTU>'})
 
         elif len(response)==1:
-            response. append({"id":'<POISTETTU>', "name":'<POISTETTU>'})
+            response. append({"id":'<POISTETTU>', "name":'<POISTETTU>', "belt":'<POISTETTU>'})
 
         return response
+
+
+    @staticmethod
+    def get_matches_by_fighter(fighters):
+       
+        fighter_ids=[]
+       
+        for fighter in fighters:
+          fighter_ids.append(fighter.id)
+
+            
+        match_ids= db.session().execute(select(
+        [matchfighter.c.match_id], 
+        matchfighter.c.fighter_id.in_(fighter_ids), distinct=True )).fetchall()
+
+      
+        matches=[]
+
+        for id in match_ids:
+          matches.append(Match.query.get_or_404(id))
+
+        return matches
        

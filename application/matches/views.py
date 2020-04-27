@@ -5,6 +5,7 @@ from application.matches.models import Match
 from application.matches.forms import MatchForm
 from application.fighters.models import Fighter
 from application.points.models import Points
+from application.fighters.forms import SearchForm, FilterForm
 
 @app.route("/matches", methods=["GET"])
 def matches_index():
@@ -15,20 +16,22 @@ def matches_index():
     for match in matches:
         fighters= Match.get_fighters(match.id)
         fighter1=fighters[0]["name"]
+        belt1=fighters[0]["belt"]
         fighter2=fighters[1]["name"]
+        belt2=fighters[1]["belt"]
         winner= Fighter.find_fighter_names(match.winner_id,all_fighters)
 
         if match.winning_category=='Pistevoitto':
             p=Points.get_points(match.id)
             points= "{:d}|{:d}|{:d} - {:d}|{:d}|{:d}".format(p[0]["points"], p[0]["penalties"], p[0]["advantage"], p[1]["points"], p[1]["penalties"], p[1]["advantage"])
             to_list.append({"id": match.id, "date":match.date, "place": match.place, 
-            "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1, "fighter2":fighter2, "winning_category": match.winning_category, "comment":match.comment, "points":points})
+            "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1,"belt1":belt1, "fighter2":fighter2,"belt2":belt2, "winning_category": match.winning_category, "comment":match.comment, "points":points})
 
         else:
             to_list.append({"id": match.id, "place": match.place, "date":match.date, 
-            "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1, "fighter2":fighter2, "winning_category": match.winning_category, "comment":match.comment})
-        
-    return render_template("matches/list.html", matches = to_list)
+            "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1, "belt1":belt1, "fighter2":fighter2, "belt2":belt2, "winning_category": match.winning_category, "comment":match.comment})
+
+    return render_template("matches/list.html", matches = to_list, searchform=SearchForm())
 
 @app.route("/matches/new/", methods=["GET"])
 @login_required
@@ -62,13 +65,15 @@ def match_toggle_winner(match_id):
 def match_remove_match(match_id):
     match_to_delete = Match.query.get_or_404(match_id)
 
-    for fighter in match_to_delete.fighters:
+    for fighter in reversed(match_to_delete.fighters):
         match_to_delete.fighters.remove(fighter)
         db.session().commit()
     
     if match_to_delete.points:
-        for points in match_to_delete.points:
+        for points in reversed(match_to_delete.points):
             match_to_delete.points.remove(points)
+            db.session().commit()
+            db.session().delete(points)
             db.session().commit()
 
     db.session().delete(match_to_delete)
@@ -126,3 +131,49 @@ def matches_create():
         return redirect(url_for('points_form', fighter1_id=fighter1_id, fighter2_id=fighter2_id, match_id=match.id))
     else:
         return redirect(url_for("matches_index"))
+
+
+@app.route("/matches/search", methods=["GET"])
+def matches_search():
+    #filterform=FilterForm()
+    #filterform.by_club.choices=clubs=Fighter.get_clubs()
+
+    search_by =request.args.get('searchword')
+
+    if len(search_by)==0:
+        return redirect(url_for("matches_index"))
+
+    qry = db.session().query(Fighter).filter(
+                Fighter.name.contains(search_by))
+    fighters= qry.all()
+
+
+    if len(fighters)==0:
+      to_list=[]
+
+
+    else:
+
+      matches = Match.get_matches_by_fighter(fighters)
+      all_fighters=Fighter.query.all()
+    
+      to_list=[]
+      for match in matches:
+          fighters= Match.get_fighters(match.id)
+          fighter1=fighters[0]["name"]
+          belt1=fighters[0]["belt"]
+          fighter2=fighters[1]["name"]
+          belt2=fighters[1]["belt"]
+          winner= Fighter.find_fighter_names(match.winner_id,all_fighters)
+
+          if match.winning_category=='Pistevoitto':
+              p=Points.get_points(match.id)
+              points= "{:d}|{:d}|{:d} - {:d}|{:d}|{:d}".format(p[0]["points"], p[0]["penalties"], p[0]["advantage"], p[1]["points"], p[1]["penalties"], p[1]["advantage"])
+              to_list.append({"id": match.id, "date":match.date, "place": match.place, 
+              "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1,"belt1":belt1, "fighter2":fighter2,"belt2":belt2, "winning_category": match.winning_category, "comment":match.comment, "points":points})
+
+          else:
+              to_list.append({"id": match.id, "place": match.place, "date":match.date, 
+              "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1, "belt1":belt1, "fighter2":fighter2, "belt2":belt2, "winning_category": match.winning_category, "comment":match.comment})
+
+    return render_template("matches/list.html", matches = to_list, searchform=SearchForm())

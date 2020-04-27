@@ -24,8 +24,8 @@ class Fighter(db.Model):
 
     @staticmethod
     def get_match_history(fighter_id):
-        stmt = text("SELECT COALESCE((SELECT COUNT(*) FROM Match"
-                    " WHERE (fighter1_id = :id OR fighter2_id = :id)),0)").params(id=fighter_id)
+        stmt = text("SELECT COALESCE((SELECT COUNT(*) FROM matchfighter"
+                    " WHERE fighter_id = :id),0)").params(id=fighter_id)
         
         res= db.engine.execute(stmt)
         response = []
@@ -39,7 +39,6 @@ class Fighter(db.Model):
         for row in res:
             response.append(row[0])
 
-        print("res", response)
         return response
     
 

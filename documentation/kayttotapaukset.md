@@ -48,8 +48,8 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
     ``` 
     Ottelut
     ```
-    SELECT COALESCE((SELECT COUNT(*) FROM Match
-                WHERE (fighter1_id = ? OR fighter2_id = ?)),0);
+    SELECT COALESCE((SELECT COUNT(*) FROM matchfighter"
+                    " WHERE fighter_id = :id),0);
     ```
     Voitot
     ```

@@ -153,10 +153,4 @@ class Match(db.Model):
         for row in res:
           matches.append(Match.query.get_or_404(row[0]))
 
-
-        #response=[]
-        #for row in res:
-        #    response.append({"id":row[0], "date":row[1], "place":row[2], "winning_category":row[3], 
-        #        "winner_id":row[4], "comment":row[5], "creator_id":row[6]})
-
         return matches

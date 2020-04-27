@@ -18,3 +18,13 @@ class MatchForm(FlaskForm):
     class Meta:
         csrf = False
 
+
+class FilterForm(FlaskForm):
+    by_club= SelectField("Seura", coerce=int)
+    by_winning_category= SelectField("Voittokategoria", choices=[('-1', 'Valitse voittokategoria'),
+        ('Pistevoitto', 'Pistevoitto'), ('Luovutusvoitto', 'Luovutusvoitto'), ('Tuomarin päätös', 'Tuomarin päätös')])
+    by_belt= SelectField("Vyöarvo", choices=[('-1', 'Valitse vyöarvo'), ('valkoinen', 'valkoinen'),
+       ('sininen', 'sininen'), ('violetti', 'violetti'), ('ruskea', 'ruskea'), ('musta', 'musta')])
+    
+    class Meta:
+        csrf=False

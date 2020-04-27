@@ -26,6 +26,26 @@
   </table>
 </form>
 </br>
+<b>TAI</b>
+<form method="GET" action="{{ url_for('matches_filter') }}">
+  <table>
+    <tr>
+      <td>Rajaa tuloksia </td>
+      <td>
+        {{ filterform.by_belt}}
+      </td>
+      <td>
+        {{ filterform.by_club }}
+      </td>
+      <td>
+        {{ filterform.by_winning_category}}
+      </td>
+      <td>
+        <input type="submit" value="Hae" />
+      </td>
+    </tr>
+  </table>
+</form>
 </br>
 <form method="GET" action="{{ url_for('matches_index') }}">
   <input type="submit" value="Nollaa kaikki" />

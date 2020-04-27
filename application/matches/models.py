@@ -18,8 +18,6 @@ class Match(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     date=db.Column(db.Date, default=db.func.current_date())
     place=db.Column(db.String(144), nullable=False)
-    fighter1_id=db.Column(db.Integer, nullable=False )
-    fighter2_id=db.Column(db.Integer, nullable=False)
     winner_id=db.Column(db.Integer)
     winning_category= db.Column(db.String(144))
     comment=db.Column(db.String(244))
@@ -29,13 +27,10 @@ class Match(db.Model):
     fighters=db.relationship('Fighter', secondary=matchfighter, backref='match')
    
 
-    def __init__(self, date, place, winning_category, fighter1_id, fighter2_id, winner_id, comment, creator_id):
+    def __init__(self, date, place, winning_category, winner_id, comment, creator_id):
         self.date=date
         self.place = place
         self.winning_category= winning_category
-        self.winner_id=winner_id
-        self.fighter1_id=fighter1_id
-        self.fighter2_id=fighter2_id
         self.winner_id=winner_id
         self.comment=comment
         self.creator_id=creator_id
@@ -76,7 +71,6 @@ class Match(db.Model):
         match_ids= db.session().execute(select(
         [matchfighter.c.match_id], 
         matchfighter.c.fighter_id.in_(fighter_ids), distinct=True )).fetchall()
-
       
         matches=[]
 
@@ -85,3 +79,84 @@ class Match(db.Model):
 
         return matches
        
+
+    @staticmethod
+    def filter_matches(belt, club, clubs, winning_category):
+
+        club_filter=''
+        for c in clubs:
+            if int(c[0])==int(club):
+                club_filter=c[1]
+
+        #only category
+        if (belt == '-1' and club == '-1'):
+            stmt= text("SELECT match.id FROM match"
+                  + " WHERE match.winning_category=:category").params(category=winning_category)
+
+
+        #only belt
+        elif (winning_category == '-1' and club == '-1'):
+             stmt= text("SELECT DISTINCT match.id FROM match"
+                  + " JOIN matchfighter ON matchfighter.match_id = match.id"
+                  + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
+                  + " WHERE fighter.belt=:belt").params(belt=belt)
+
+
+        # only club
+        elif (winning_category == '-1' and belt == '-1'):
+             stmt= text("SELECT DISTINCT match.id FROM match"
+                  + " JOIN matchfighter ON matchfighter.match_id = match.id"
+                  + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
+                  + " WHERE fighter.club=:club").params(club=club_filter)
+
+
+        # win + belt
+        elif club == '-1':
+             stmt= text("SELECT DISTINCT match.id FROM match"
+                  + " JOIN matchfighter ON matchfighter.match_id = match.id"
+                  + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
+                  + " WHERE match.winning_category=:category"
+                  + " AND fighter.belt=:belt").params(category=winning_category, belt=belt)
+
+
+        #win + club
+        elif belt == '-1':
+             stmt= text("SELECT DISTINCT match.id FROM match"
+                  + " JOIN matchfighter ON matchfighter.match_id = match.id"
+                  + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
+                  + " WHERE match.winning_category=:category"
+                  + " AND fighter.club=:club").params(category=winning_category, club=club_filter)
+
+
+        # club + belt
+        elif winning_category == '-1':
+             stmt= text("SELECT DISTINCT match.id FROM match"
+                  + " JOIN matchfighter ON matchfighter.match_id = match.id"
+                  + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
+                  + " WHERE fighter.club=:club"
+                  + " AND fighter.belt=:belt").params(club=club_filter, belt=belt)
+
+
+        #all
+        else:
+            stmt= text("SELECT DISTINCT match.id FROM match"
+                  + " JOIN matchfighter ON matchfighter.match_id = match.id"
+                  + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
+                  + " WHERE match.winning_category=:category"
+                  + " AND fighter.club=:club"
+                  + " AND fighter.belt=:belt").params(category=winning_category, club=club_filter, belt=belt)
+        
+        
+        res= db.engine.execute(stmt)
+        matches=[]
+
+        for row in res:
+          matches.append(Match.query.get_or_404(row[0]))
+
+
+        #response=[]
+        #for row in res:
+        #    response.append({"id":row[0], "date":row[1], "place":row[2], "winning_category":row[3], 
+        #        "winner_id":row[4], "comment":row[5], "creator_id":row[6]})
+
+        return matches

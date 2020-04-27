@@ -2,16 +2,19 @@ from application import app, db
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from application.matches.models import Match
-from application.matches.forms import MatchForm
+from application.matches.forms import MatchForm, FilterForm
 from application.fighters.models import Fighter
 from application.points.models import Points
-from application.fighters.forms import SearchForm, FilterForm
+from application.fighters.forms import SearchForm
 
-@app.route("/matches", methods=["GET"])
-def matches_index():
-    matches = Match.query.all()
+
+
+def form_matchlist(matches):
+
+    if len(matches)==0:
+      return []
+
     all_fighters=Fighter.query.all()
-    
     to_list=[]
     for match in matches:
         fighters= Match.get_fighters(match.id)
@@ -31,7 +34,18 @@ def matches_index():
             to_list.append({"id": match.id, "place": match.place, "date":match.date, 
             "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1, "belt1":belt1, "fighter2":fighter2, "belt2":belt2, "winning_category": match.winning_category, "comment":match.comment})
 
-    return render_template("matches/list.html", matches = to_list, searchform=SearchForm())
+    return to_list
+
+
+@app.route("/matches", methods=["GET"])
+def matches_index():
+    filterform=FilterForm()
+    filterform.by_club.choices=clubs=Fighter.get_clubs()
+    matches = Match.query.all()
+    
+    to_list=form_matchlist(matches)
+    
+    return render_template("matches/list.html", matches = to_list, searchform=SearchForm(), filterform=filterform)
 
 @app.route("/matches/new/", methods=["GET"])
 @login_required
@@ -114,7 +128,7 @@ def matches_create():
     comment= form.comment.data
     creator_id= current_user.id
        
-    match = Match(date, place, winning_category, fighter1_id, fighter2_id, winner_id, comment, creator_id)
+    match = Match(date, place, winning_category, winner_id, comment, creator_id)
 
     db.session().add(match)
     db.session().commit()
@@ -135,8 +149,8 @@ def matches_create():
 
 @app.route("/matches/search", methods=["GET"])
 def matches_search():
-    #filterform=FilterForm()
-    #filterform.by_club.choices=clubs=Fighter.get_clubs()
+    filterform=FilterForm()
+    filterform.by_club.choices=clubs=Fighter.get_clubs()
 
     search_by =request.args.get('searchword')
 
@@ -147,33 +161,31 @@ def matches_search():
                 Fighter.name.contains(search_by))
     fighters= qry.all()
 
-
     if len(fighters)==0:
       to_list=[]
-
-
     else:
-
       matches = Match.get_matches_by_fighter(fighters)
-      all_fighters=Fighter.query.all()
+      to_list=form_matchlist(matches)
+
+    return render_template("matches/list.html", matches = to_list, searchform=SearchForm(), filterform=filterform)
+
+
+@app.route("/matches/filter", methods=["GET"])
+def matches_filter():
     
-      to_list=[]
-      for match in matches:
-          fighters= Match.get_fighters(match.id)
-          fighter1=fighters[0]["name"]
-          belt1=fighters[0]["belt"]
-          fighter2=fighters[1]["name"]
-          belt2=fighters[1]["belt"]
-          winner= Fighter.find_fighter_names(match.winner_id,all_fighters)
+    filterform=FilterForm(request.form)
+    clubs=Fighter.get_clubs()
+    filterform.by_club.choices=clubs
 
-          if match.winning_category=='Pistevoitto':
-              p=Points.get_points(match.id)
-              points= "{:d}|{:d}|{:d} - {:d}|{:d}|{:d}".format(p[0]["points"], p[0]["penalties"], p[0]["advantage"], p[1]["points"], p[1]["penalties"], p[1]["advantage"])
-              to_list.append({"id": match.id, "date":match.date, "place": match.place, 
-              "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1,"belt1":belt1, "fighter2":fighter2,"belt2":belt2, "winning_category": match.winning_category, "comment":match.comment, "points":points})
+    belt = request.args.get('by_belt')
+    club = request.args.get('by_club')
+    winning_category= request.args.get('by_winning_category')
 
-          else:
-              to_list.append({"id": match.id, "place": match.place, "date":match.date, 
-              "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1, "belt1":belt1, "fighter2":fighter2, "belt2":belt2, "winning_category": match.winning_category, "comment":match.comment})
 
-    return render_template("matches/list.html", matches = to_list, searchform=SearchForm())
+    if (belt != '-1' or club != '-1' or winning_category != '-1'):
+        matches =Match.filter_matches(belt, club, clubs, winning_category)
+        to_list=form_matchlist(matches)
+        return render_template("matches/list.html", matches=to_list, searchform=SearchForm(),
+                    filterform=filterform)
+    else:
+       return redirect(url_for("matches_index"))

@@ -1,118 +1,47 @@
 {% extends "layout.html" %}
-  
+{% import "bootstrap/wtf.html" as wtf %}
 {% block body %}
 <div>
-  <b>Lisää vielä ottelun lopulliset pisteet, myös nollat</b>
+  <h4>Lisää vielä ottelun lopulliset pisteet, myös nollat</h4>
 </div>
 </br>
-<form method="POST" action="{{ url_for('add_points', match_id=match_id, fighter1_id=fighter1_id, fighter2_id=fighter2_id) }}">
-  <table>
-    <tr>
-      <td>
-        <b>{{ fighter1 }} </b>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.fighter1_points.label }}
-      </td>
-      <td>
-        {{ form.fighter1_points }}
-      </td>
-      <td>
-        <ul>
-          {% for error in form.fighter1_points.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.fighter1_penalties.label }}
-      </td>
-      <td>
-        {{ form.fighter1_penalties }}
-      </td>
-      <td>
-        <ul>
-          {% for error in form.fighter1_penalties.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.fighter1_advantages.label }}
-      </td>
-      <td>
-        {{ form.fighter1_advantages}}
-      </td>
-      <td>
-        <ul>
-          {% for error in form.fighter1_advantages.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr><td> </br></td></tr>
-    <tr>
-        <td>
-          <b>{{ fighter2 }} </b>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          {{ form.fighter2_points.label }}
-        </td>
-        <td>
-          {{ form.fighter2_points }}
-        </td>
-        <td>
-          <ul>
-            {% for error in form.fighter2_points.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          {{ form.fighter2_penalties.label }}
-        </td>
-        <td>
-          {{ form.fighter2_penalties }}
-        </td>
-        <td>
-          <ul>
-            {% for error in form.fighter2_penalties.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          {{ form.fighter2_advantages.label }}
-        </td>
-        <td>
-          {{ form.fighter2_advantages}}
-        </td>
-        <td>
-          <ul>
-            {% for error in form.fighter2_advantages.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-        </td>
-      </tr>
-    <tr>
-      <td colspan="2">
-        <input type="submit" value="Tallenna pisteet"/>
-      </td>
-    </tr>  
-</form>
-<b>{{ error }}</b>
-{% endblock %}
+<form method="POST"
+  action="{{ url_for('add_points', match_id=match_id, fighter1_id=fighter1_id, fighter2_id=fighter2_id) }}">
+  <div class=form-group">
+    <div>
+      <b>{{ fighter1 }} </b>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        {{ wtf.form_field(form.fighter1_points, class="form-control") }}
+      </div>
+      <div class="col-sm-2">
+        {{ wtf.form_field(form.fighter1_penalties, class="form-control") }}
+      </div>
+      <div class="col-sm-2">
+        {{ wtf.form_field(form.fighter1_advantages, class="form-control") }}
+      </div>
+    </div>
+    <div>
+      <b>{{ fighter2 }} </b>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        {{ wtf.form_field(form.fighter2_points, class="form-control") }}
+      </div>
+      <div class="col-sm-2">
+        {{ wtf.form_field(form.fighter2_penalties, class="form-control") }}
+      </div>
+      <div class="col-sm-2">
+        {{ wtf.form_field(form.fighter2_advantages, class="form-control") }}
+      </div>
+    </div>
+    <div>
+      <input type="submit" value="Tallenna pisteet" />
+    </div>
+
+  </div>
+  </div>
+  <b>{{ wtf.form_errors(form) }}</b>
+  <b>{{ error }}</b>
+  {% endblock %}

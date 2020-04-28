@@ -12,7 +12,7 @@ class MatchForm(FlaskForm):
         validators=[InputRequired(message= "Valitse voittaja")])
     winning_category= SelectField("Voittotyyppi*", choices=[
        ('submission', 'Luovutusvoitto'), ('point_win', 'Pistevoitto'),('judge_call', 'Tuomarin päätös') ])
-    comment= TextAreaField("Lisätietoja",[validators.Length(max=244)])
+    comment= TextAreaField("Lisätietoja",[validators.Length(max=50)])
     
 
     class Meta:

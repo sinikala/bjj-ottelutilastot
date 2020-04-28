@@ -1,78 +1,78 @@
 {% extends "layout.html" %}
-
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block body %}
+{% block styles %}
+<style>
+  .control-label {
+    display: none;
+  }
+</style>
+{% endblock %}
+
 <h2>Ottelijat</h2>
 </br>
+
 <form method="GET" action="{{ url_for('fighters_search', clubs=clubs) }}">
-  <table>
-    <tr>
-      <td>
-        {{ searchform.searchword.label}}
-      </td>
-      <td>
-        {{ searchform.searchword }}
-      </td>
-      <td>
-        <input type="submit" value="Hae"/>
-      </td>
-      <td>
-        <ul>
-          {% for error in searchform.searchword.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-  </table>
+  <div class="form-group row">
+    <div class="col-sm-6">
+      {{ wtf.form_field(searchform.searchword, class="form-control", placeholder= "Hae ottelijan nimellä") }}
+      <input type="submit" class="btn btn-outline-primary btn-sm" value="Hae" />
+    </div>
+  </div>
+
 </form>
 
-<b>TAI</b>
-
+<b>Tai rajaa</b>
+</br>
 <form method="GET" action="{{ url_for('fighters_filter') }}">
-  <table>
-    <tr>
-      <td>Rajaa tuloksia </td>
-      <td>
-        {{ filterform.by_belt}}
-      </td>
-      <td>
-        {{ filterform.by_club }}
-      </td>
-      <td>
-        <input type="submit" value="Hae"/>
-      </td>
-    </tr>
-  </table>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        {{ wtf.form_field(filterform.by_belt, class="form-control") }}
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        {{ wtf.form_field(filterform.by_club, class="form-control") }}
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <input type="submit" class="btn btn-outline-primary btn-sm" value="Hae" />
+      </div>
+    </div>
+  </div>
 </form>
-
-</br>
 <form method="GET" action="{{ url_for('fighters_index') }}">
-  <input type="submit" value="Nollaa kaikki"/>
+  <input type="submit" class="btn btn-outline-primary btn-sm" value="Nollaa kaikki" />
 </form>
-
-
-
 </br>
-  <table>
+<table class="table table-striped">
+  <thead class="thead-dark">
     <tr>
-      <th>Nimi</th>
-      <th>Vyöarvo</th>
-      <th>Kotiseura</th>   
+      <th scope="col">Nimi</th>
+      <th scope="col">Vyöarvo</th>
+      <th scope="col">Kotiseura</th>
+      <th scope="col"></th>
     </tr>
-    {% if fighters %}
-    {% for fighter in fighters %}
+  </thead>
+  {% if fighters %}
+  {% for fighter in fighters %}
+
+  <body>
     <tr>
-      <td>{{ fighter.name }}</td>
+      <th scope="row">{{ fighter.name }}</th>
       <td>{{ fighter.belt }}</td>
-      <td>{{ fighter.club }}</td>  
+      <td>{{ fighter.club }}</td>
       <td>
         <form method="GET" action="{{ url_for('fighter_info', fighter_id=fighter.id) }}">
-            <input type="submit" value="Profiili"/>
+          <input type="submit" class="btn btn-outline-primary btn-sm" value="Profiili" />
         </form>
-      </td>    
+      </td>
     </tr>
-    {% endfor %}
-    {% endif %}
-  </table>
+  </body>
+  {% endfor %}
+  {% endif %}
+</table>
 {% endblock %}

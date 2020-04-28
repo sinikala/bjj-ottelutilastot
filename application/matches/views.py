@@ -8,6 +8,21 @@ from application.points.models import Points
 from application.fighters.forms import SearchForm
 
 
+def set_belt_color(color):
+    if color=='valkoinen':
+      return "style=fill:white;stroke-width:1;stroke:rgb(0,0,0)"
+
+    elif color=='sininen':
+      return "style=fill:#3498DB;stroke-width:1;stroke:rgb(0,0,0)"
+
+    elif color=='violetti':
+      return "style=fill:#8E44AD;stroke-width:1;stroke:rgb(0,0,0)"
+
+    elif color=='ruskea':
+      return "style=fill:#784212;stroke-width:1;stroke:rgb(0,0,0)"
+
+    return "style=fill:#212F3D;stroke-width:1;stroke:rgb(0,0,0)"
+
 
 def form_matchlist(matches):
 
@@ -19,14 +34,14 @@ def form_matchlist(matches):
     for match in matches:
         fighters= Match.get_fighters(match.id)
         fighter1=fighters[0]["name"]
-        belt1=fighters[0]["belt"]
+        belt1=set_belt_color(fighters[0]["belt"])
         fighter2=fighters[1]["name"]
-        belt2=fighters[1]["belt"]
+        belt2=set_belt_color(fighters[1]["belt"])
         winner= Fighter.find_fighter_names(match.winner_id,all_fighters)
 
         if match.winning_category=='Pistevoitto':
             p=Points.get_points(match.id)
-            points= "{:d}|{:d}|{:d} - {:d}|{:d}|{:d}".format(p[0]["points"], p[0]["penalties"], p[0]["advantage"], p[1]["points"], p[1]["penalties"], p[1]["advantage"])
+            points= "{:d} | {:d} | {:d} -- {:d} | {:d} | {:d}".format(p[0]["points"], p[0]["penalties"], p[0]["advantage"], p[1]["points"], p[1]["penalties"], p[1]["advantage"])
             to_list.append({"id": match.id, "date":match.date, "place": match.place, 
             "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1,"belt1":belt1, "fighter2":fighter2,"belt2":belt2, 
                 "winning_category": match.winning_category, "comment":match.comment, "points":points})

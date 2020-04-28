@@ -12,7 +12,7 @@ def fighters_index():
     belt_filter= dict(filterform.by_belt.choices).get(filterform.by_belt.data)
     club_filter= dict(filterform.by_club.choices).get(filterform.by_club.data)
 
-    return render_template("fighters/list.html", fighters= Fighter.query.all(), searchform=SearchForm(), filterform=filterform)
+    return render_template("fighters/list.html", fighters= Fighter.query.order_by(Fighter.name).all(), searchform=SearchForm(), filterform=filterform)
 
 
 @app.route("/fighters/new/")
@@ -99,7 +99,7 @@ def fighters_search():
         return redirect(url_for("fighters_index"))
 
     qry = db.session().query(Fighter).filter(
-                Fighter.name.contains(search_by))
+                Fighter.name.contains(search_by)).order_by(Fighter.name)
     results= qry.all()
 
     return render_template("fighters/list.html", fighters= results, searchform=SearchForm(),

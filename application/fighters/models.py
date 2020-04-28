@@ -63,16 +63,19 @@ class Fighter(db.Model):
 
         if belt == '-1':
             stmt= text("SELECT * FROM Fighter"
-                  + " WHERE Fighter.club=:searchword").params(searchword=club_filter)
+                  + " WHERE Fighter.club=:searchword"
+                  + " ORDER BY Fighter.name").params(searchword=club_filter)
 
         elif club == '-1':
             
             stmt= text("SELECT * FROM Fighter"
-                   + " WHERE Fighter.belt=:searchword").params(searchword=belt)
+                   + " WHERE Fighter.belt=:searchword"
+                   + " ORDER BY Fighter.name").params(searchword=belt)
         else:
             stmt= text("SELECT * FROM Fighter"
                    + " WHERE Fighter.club=:club"
-                   + " AND Fighter.belt=:belt").params(club=club_filter, belt=belt)
+                   + " AND Fighter.belt=:belt"
+                   + " ORDER BY Fighter.name").params(club=club_filter, belt=belt)
         
         
         res= db.engine.execute(stmt)

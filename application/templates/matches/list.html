@@ -92,6 +92,13 @@
         <input type="submit" value="Poista ottelu" />
       </form>
     </td>
+    {% if match.points %}
+    <td>
+      <form method="GET" action="{{ url_for('points_editform', match_id=match.id) }}">
+        <input type="submit" value="Muokkaa pisteitä" />
+      </form>
+    </td>
+    {% endif %}
     {% else %}
     <td></td>
     <td></td>

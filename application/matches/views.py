@@ -28,11 +28,13 @@ def form_matchlist(matches):
             p=Points.get_points(match.id)
             points= "{:d}|{:d}|{:d} - {:d}|{:d}|{:d}".format(p[0]["points"], p[0]["penalties"], p[0]["advantage"], p[1]["points"], p[1]["penalties"], p[1]["advantage"])
             to_list.append({"id": match.id, "date":match.date, "place": match.place, 
-            "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1,"belt1":belt1, "fighter2":fighter2,"belt2":belt2, "winning_category": match.winning_category, "comment":match.comment, "points":points})
+            "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1,"belt1":belt1, "fighter2":fighter2,"belt2":belt2, 
+                "winning_category": match.winning_category, "comment":match.comment, "points":points})
 
         else:
             to_list.append({"id": match.id, "place": match.place, "date":match.date, 
-            "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1, "belt1":belt1, "fighter2":fighter2, "belt2":belt2, "winning_category": match.winning_category, "comment":match.comment})
+            "winner_id":match.winner_id, "winner":winner, "fighter1":fighter1, "belt1":belt1, "fighter2":fighter2, "belt2":belt2,
+                "winning_category": match.winning_category, "comment":match.comment})
 
     return to_list
 
@@ -41,8 +43,7 @@ def form_matchlist(matches):
 def matches_index():
     filterform=FilterForm()
     filterform.by_club.choices=clubs=Fighter.get_clubs()
-    matches = Match.query.all()
-    
+    matches= Match.query.order_by(Match.date).all()
     to_list=form_matchlist(matches)
     
     return render_template("matches/list.html", matches = to_list, searchform=SearchForm(), filterform=filterform)

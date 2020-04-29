@@ -8,7 +8,7 @@ class FighterForm(FlaskForm):
     name = StringField("Nimi*", [validators.Length(min=3, max=50)])
     born= IntegerField("Syntymävuosi*", validators=[NumberRange(min=1900, max=2017,
         message='Syötä kelvollinen syntymävuosi')])
-    belt = SelectField("Vyöarvo*", choices=[('valkoinen', 'valkoinen'),
+    belt = SelectField("Vyöarvo*", choices=[('-', '-'), ('valkoinen', 'valkoinen'),
        ('blue', 'sininen'), ('purple', 'violetti'), ('brown', 'ruskea'), ('black', 'musta')])
     club = StringField("Seura", [validators.Length(min=0, max=80)])
     weight = DecimalField("Paino (kg) ", places=1, rounding=None, validators=[NumberRange(min=0, max=200,

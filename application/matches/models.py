@@ -92,7 +92,7 @@ class Match(db.Model):
         if (belt == '-1' and club == '-1'):
             stmt= text("SELECT match.id FROM match"
                   + " WHERE match.winning_category=:category"
-                  + " ORDER BY match.date").params(category=winning_category)
+                  + " ORDER BY match.date DESC").params(category=winning_category)
 
 
         #only belt
@@ -101,7 +101,7 @@ class Match(db.Model):
                   + " JOIN matchfighter ON matchfighter.match_id = match.id"
                   + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
                   + " WHERE fighter.belt=:belt"
-                  + " ORDER BY match.date").params(belt=belt)
+                  + " ORDER BY match.date DESC").params(belt=belt)
 
 
         # only club
@@ -110,7 +110,7 @@ class Match(db.Model):
                   + " JOIN matchfighter ON matchfighter.match_id = match.id"
                   + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
                   + " WHERE fighter.club=:club"
-                  + " ORDER BY match.date").params(club=club_filter)
+                  + " ORDER BY match.date DESC").params(club=club_filter)
 
 
         # win + belt
@@ -120,7 +120,7 @@ class Match(db.Model):
                   + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
                   + " WHERE match.winning_category=:category"
                   + " AND fighter.belt=:belt"
-                  + " ORDER BY match.date").params(category=winning_category, belt=belt)
+                  + " ORDER BY match.date DESC").params(category=winning_category, belt=belt)
 
 
         #win + club
@@ -130,7 +130,7 @@ class Match(db.Model):
                   + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
                   + " WHERE match.winning_category=:category"
                   + " AND fighter.club=:club"
-                  + " ORDER BY match.date").params(category=winning_category, club=club_filter)
+                  + " ORDER BY match.date DESC").params(category=winning_category, club=club_filter)
 
 
         # club + belt
@@ -140,7 +140,7 @@ class Match(db.Model):
                   + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
                   + " WHERE fighter.club=:club"
                   + " AND fighter.belt=:belt"
-                  + " ORDER BY match.date").params(club=club_filter, belt=belt)
+                  + " ORDER BY match.date DESC").params(club=club_filter, belt=belt)
 
 
         #all
@@ -151,7 +151,7 @@ class Match(db.Model):
                   + " WHERE match.winning_category=:category"
                   + " AND fighter.club=:club"
                   + " AND fighter.belt=:belt"
-                  + " ORDER BY match.date").params(category=winning_category, club=club_filter, belt=belt)
+                  + " ORDER BY match.date DESC").params(category=winning_category, club=club_filter, belt=belt)
         
         
         res= db.engine.execute(stmt)

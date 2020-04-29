@@ -1,4 +1,4 @@
-### Tulospalvelu brasilialaisen jujutsun -otteluille
+# Tulospalvelu brasilialaisen jujutsun -otteluille
 Käyttäjä voi palvelun avulla tarkastella toteutuneiden BJJ-otteluiden tuloksia sekä otelleiden ottelijoiden tulosten kannalta oleellisia tietoja, kuten vyötaso ja kotiseura.
 
 Palvelu kertoo otteluista seuraavat tiedot: aika, paikka, ottelijat, ottelutaso (valko-/väri-/mustavöiset), voittaja ja voittotyyppi (luovutus-, pistevoitto tai tuomarin päätös). Mikäli ottelu on päättynyt pistevoitolla, näytetään myös kyseisen ottelun lopulliset pisteet.
@@ -7,7 +7,7 @@ Tulostilastoja voi rajata eri ominaisuuksien, kuten seura, voittotyyppi tai otte
 
 Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä uusia ottelijoita ja muokata tietoja. 
 
-### Käyttötapaukset ja niihin liittyvät SQL-kyselyt:
+## Käyttötapaukset ja niihin liittyvät SQL-kyselyt:
 
 **Käyttäjä voi ...** 
 
@@ -33,7 +33,19 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
   
    Toteutuu yllä olevilla kyselyillä. 
 
-- rajata ottelulistaa seuran, ottelijan tai voittotyypin perusteella (TULOSSA)
+- rajata ottelulistaa seuran, ottelijan tai voittotyypin perusteella
+  
+  Esimerkiksi kun käytetään kaikkia kolmea filteriä:
+  ```
+    SELECT DISTINCT match.id FROM match"
+                  + " JOIN matchfighter ON matchfighter.match_id = match.id"
+                  + " JOIN fighter ON fighter.id = matchfighter.fighter_id"
+                  + " WHERE match.winning_category=?"
+                  + " AND fighter.club=:?"
+                  + " AND fighter.belt=?"
+                  + " ORDER BY match.date DESC;
+  ```
+
   
 - nähdä listan kaikista palveluun lisätyistä ottelijoista
     Ottelijan perustiedot
@@ -49,7 +61,7 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
     Ottelut
     ```
     SELECT COALESCE((SELECT COUNT(*) FROM matchfighter"
-                    " WHERE fighter_id = :id),0);
+                    " WHERE fighter_id = ?),0);
     ```
     Voitot
     ```
@@ -73,7 +85,7 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
  - rekisteröityä moderaattoriksi, eli luoda käyttäjätunnukset, mikäli hän tietää rekisteröitymiseen vaadittavan avaimen.
     ```
     INSERT INTO account (name, username, password) 
-                VALUES ('Allu Admin', 'root', 'secret');
+                VALUES (?, ?, ?);
     ```
  
 **Moderaattori, eli kirjautunut käyttäjä, voi ...**
@@ -86,30 +98,71 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
     ```
 
  -  ...**sisäänkirjatuneena** ... 
-     - lisätä ottelun palveluun
+    - lisätä ottelun palveluun
          ```
         INSERT INTO Match (date, place, winning_category, fighter1_id, fighter2_id, winner_id, creator_id, comment) 
-                VALUES ('?', '?', '?','?','?', '?','?', '?');
-    ```
-    Lisäksi liitetään ottelijat otteluun ja tarvittaessa lisätään pisteet
-    
+                VALUES (?,?,?,?,?,?,?,?);
+        ```
+        Lisäksi liitetään ottelijat otteluun ja tarvittaessa lisätään pisteet
+        ```
+        INSERT INTO matchfighter (match_id, fighter_id) VALUES (?,?);
+        ```
+
+        ```
+        INSERT INTO points (points, penalties, advantage, fighter_id)
+                VALUES (?,?,?,?)
+        ```
+        ```
+        INSERT INTO matchpoints (match_id, points_id) VALUES (?,?);
+        ```
 
      - lisätä ottelijan palveluun
-     - muokata palvelussa olevan ottelun tietoja
-     - muokata palvelussa olevan pttelijan tietoja
+        ```
+        INSERT INTO Fighter (name, born, belt, club, weight, creator_id) 
+                VALUES (?,?,?,?,?,?);
+        ```
+     - muokata palvelussa olevan ottelun pisteet
+         ```
+         UPDATE Points 
+                SET points= ?, penalties=?, advantage=? 
+                WHERE Points.id = ?;
+         ```   
+     - vaihtaa palvelussa olevan ottelun voittajan
+        ```
+         UPDATE Match 
+                SET winner_id= ?  
+                WHERE Match.id = ?;
+         ``` 
+     - muokata palvelussa olevan ottelijan tietoja
+        ```
+         UPDATE Fighter 
+                SET name=?, born=?, belt=?, club=?, weight=?? 
+                WHERE Fighter.id = ?;
+         ``` 
      - poistaa ottelun
+        ```
+        DELETE FROM Match
+                WHERE Match.id=?;
+        ```
+        tarvittaessa samalla poistetaan otteluun liittyneet pisteet:
+        ```
+        DELETE FROM matchpoints
+                WHERE Match.id=?;
+        ```
+        ```
+        DELETE FROM Points
+                WHERE Points.id=?;
+        ```
      - poistaa ottelijan
+        ```
+        DELETE FROM Fighter
+                WHERE Fighter.id=?;
+        ```
 
-
-(*) Brasialialaisessa jujutsussa pisteet ilmoitetaan tuloksissa vain, mikäli ottelu on päättynyt pistevoittoon, eli tilanteessa, jossa kumpikaan ottelija ei ole ennen otteluajan loppumista luovuttanut tai tuomari ei ole päättänyt ottelua. Jos ottelu on päättynyt luovutukseen (lukko, kuristus, tajuttomuus) tai tuomarin päätökseen (keskeytys, diskaus) ei siihen mennessä kertyneillä pisteillä ole väliä.
-
-Pisteiden luku: 0|-1|1 - 3|0|0
-
-ottelijan 1 pisteet|rangaistuspisteet|etu(pisteet) - ottelijan 2 pisteet|rangaistuspisteet|etu(pisteet)
-
-Voiton ratkaisevat ensisijaisesti pisteet, tasatilanteessa etupisteet, etupisteiden tasatilanteessa rangaistuspisteet.
 
 
 ### Jatkokehitysideoita:
 - Otteluiden listaukseen tieto painoluokasta
-- Lisää hakuominaisuuksia
+- Lisää haku-/rajausominaisuuksia
+- Mahdollisuus muokata kaikkia ottelun tietoja
+- Sivuttaminen käyttöön listausnäkymissä.

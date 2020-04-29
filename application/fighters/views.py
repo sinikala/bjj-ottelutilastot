@@ -27,9 +27,11 @@ def fighters_create():
     if not form.validate():
         return render_template("fighters/new.html", form = form)
 
+    belt = dict(form.belt.choices).get(form.belt.data)
+    if belt=='-':
+        return render_template("fighters/new.html", form = form, error="Valitse vyö")
     name=form.name.data
     born=form.born.data
-    belt = dict(form.belt.choices).get(form.belt.data)
     club= form.club.data
     weight=form.weight.data
     creator_id= current_user.id
@@ -63,6 +65,10 @@ def edit_fighter(fighter_id):
     fighterToEdit = Fighter.query.get_or_404(fighter_id)
 
     form=FighterForm(formdata=request.form, obj=fighterToEdit)
+    belt = dict(form.belt.choices).get(form.belt.data)
+    if belt=='-':
+        return render_template("fighters/edit_fighter.html", form = form, error="Valitse vyö", fighter_id=fighter_id)
+    
     if form.validate():
         fighterToEdit.name=form.name.data
         fighterToEdit.born=form.born.data

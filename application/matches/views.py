@@ -81,7 +81,7 @@ def form_matchlist(matches):
 def matches_index():
     filterform=FilterForm()
     filterform.by_club.choices=clubs=Fighter.get_clubs()
-    matches= Match.query.order_by(Match.date).all()
+    matches= Match.query.order_by(Match.date.desc()).all()
     to_list=form_matchlist(matches)
     
     return render_template("matches/list.html", matches = to_list, searchform=SearchForm(), filterform=filterform)
@@ -89,7 +89,7 @@ def matches_index():
 @app.route("/matches/new/", methods=["GET"])
 @login_required
 def matches_form():
-    fighters=Fighter.query.all()
+    fighters=Fighter.query.order_by(Fighter.name).all()
     names=[(i.id, i.name) for i in fighters]
     form= MatchForm()
     form.fighter1.choices=names
@@ -139,7 +139,7 @@ def match_remove_match(match_id):
 @app.route("/matches/", methods=["POST", "GET"])
 @login_required
 def matches_create():
-    fighters=Fighter.query.all()
+    fighters=Fighter.query.order_by(Fighter.name).all()
     names=[(i.id, i.name) for i in fighters]
     form= MatchForm(request.form)
     form.fighter1.choices=names

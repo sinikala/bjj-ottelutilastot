@@ -11,32 +11,30 @@
 
 <form method="POST" action="{{ url_for('matches_create') }}">
   <div class=form-group">
-    <div class="col-sm-4"></div>
-      <div class="form-group">
+      <div class="col-sm-4">
         {{ wtf.form_field(form.date, class="form-control") }}
       </div>
-      <div class="form-group">
+      <div class="col-sm-4">
         {{ wtf.form_field(form.place, class="form-control") }}
       </div>
-      <div class="form-group">
+      <div class="col-sm-4">
         {{ wtf.form_field(form.fighter1, class="form-control") }}
       </div>
-      <div class="form-group">
+      <div class="col-sm-4">
         {{ wtf.form_field(form.fighter2, class="form-control") }}
       </div>
-      <div class="form-group">
+      <div class="col-sm-4">
         Voittanut ottelija {{ wtf.form_field(form.winner, class="form-control") }}
       </div>
-      <div class="form-group">
+      <div class="col-sm-4">
         {{ wtf.form_field(form.winning_category, class="form-control") }}
       </div>
-      <div class="form-group">
+      <div class="col-sm-4">
         {{ wtf.form_field(form.comment, class="form-control") }}
       </div>
       <div>
         <input type="submit" value="Luo ottelu" />
       </div>
-    </div>
   </div>
   <b>{{ wtf.form_errors(form) }}</b>
   <b>{{ error }}</b>

@@ -21,7 +21,8 @@ def points_form():
 
     match_id=request.args.get('match_id')
     return render_template("points/points.html", fighter1=fighter1, fighter2=fighter2, 
-            fighter1_id=fighter1_id, fighter2_id=fighter2_id ,match_id=match_id, form=form)
+            fighter1_id=fighter1_id, fighter2_id=fighter2_id ,match_id=match_id,
+                form=form)
 
 
 @app.route("/matches/new/points/", methods=["POST", "GET"])
@@ -31,7 +32,7 @@ def add_points():
     fighter1_id=request.args.get('fighter1_id')
     fighter2_id=request.args.get('fighter2_id')
     match_id=request.args.get('match_id')
-   
+    
     fighters=Fighter.query.all()
     fighter1= Fighter.find_fighter_names(fighter1_id, fighters)
     fighter2= Fighter.find_fighter_names(fighter2_id, fighters)
@@ -41,31 +42,22 @@ def add_points():
             form = form, fighter1=fighter1, fighter2=fighter2, 
             fighter1_id=fighter1_id, fighter2_id=fighter2_id, match_id=match_id)
 
-    match=Match.query.get(match_id)
+    default_match_points=Points.get_points(match_id)
 
-    points=form.fighter1_points.data
-    penalties= form.fighter1_penalties.data
-    advantage=form.fighter1_advantages.data
-
-    points_fighter1= Points(points, penalties, advantage, fighter1_id)
-    db.session().add(points_fighter1)
+    points_to_save= Points.query.get_or_404(default_match_points[0]["id"])
+    points_to_save.points=form.fighter1_points.data
+    points_to_save.penalties= form.fighter1_penalties.data
+    points_to_save.advantage=form.fighter1_advantages.data
     db.session().commit()
 
-    points=form.fighter2_points.data
-    penalties= form.fighter2_penalties.data
-    advantage=form.fighter2_advantages.data
-
-    points_fighter2= Points(points, penalties, advantage, fighter2_id)
-    db.session().add(points_fighter2)
-    db.session().commit()
-
-
-    match.points.append(points_fighter1)
-    db.session().commit()
-    match.points.append(points_fighter2)
+    points_to_save= Points.query.get_or_404(default_match_points[1]["id"])
+    points_to_save.points=form.fighter2_points.data
+    points_to_save.penalties= form.fighter2_penalties.data
+    points_to_save.advantage=form.fighter2_advantages.data
     db.session().commit()
 
     return redirect(url_for("matches_index"))
+    
 
 
 @app.route("/points/edit/<match_id>", methods=["GET"])

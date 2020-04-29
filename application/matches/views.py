@@ -24,6 +24,29 @@ def set_belt_color(color):
     return "style=fill:#212F3D;stroke-width:1;stroke:rgb(0,0,0)"
 
 
+def add_precautionary_points(match, fighter1_id, fighter2_id):
+    #saves default points to db to prevent internal errors in the case that the user doesn't 
+    #finish saving the points
+
+    points_ids=[]
+
+    points_fighter1= Points(0,0,0, fighter1_id)
+    db.session().add(points_fighter1)
+    db.session().commit()
+    points_ids.append(points_fighter1.id)
+
+    points_fighter2= Points(0,0,0, fighter2_id)
+    db.session().add(points_fighter2)
+    db.session().commit()
+    points_ids.append(points_fighter2.id)
+
+    match.points.append(points_fighter1)
+    db.session().commit()
+    match.points.append(points_fighter2)
+    db.session().commit()
+
+
+
 def form_matchlist(matches):
 
     if len(matches)==0:
@@ -158,6 +181,7 @@ def matches_create():
     db.session().commit()
 
     if winning_category=='Pistevoitto':
+        add_precautionary_points(match, fighter1_id, fighter2_id)
         return redirect(url_for('points_form', fighter1_id=fighter1_id, fighter2_id=fighter2_id, match_id=match.id))
     else:
         return redirect(url_for("matches_index"))

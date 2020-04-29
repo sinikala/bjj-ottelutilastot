@@ -9,8 +9,6 @@ from application.fighters.forms import FighterForm, SearchForm, FilterForm
 def fighters_index():
     filterform=FilterForm()
     filterform.by_club.choices=Fighter.get_clubs()
-    belt_filter= dict(filterform.by_belt.choices).get(filterform.by_belt.data)
-    club_filter= dict(filterform.by_club.choices).get(filterform.by_club.data)
 
     return render_template("fighters/list.html", fighters= Fighter.query.order_by(Fighter.name).all(), searchform=SearchForm(), filterform=filterform)
 

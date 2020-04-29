@@ -11,7 +11,7 @@
 
 <form method="POST" action="{{ url_for('matches_create') }}">
   <div class=form-group">
-    <div class="col-sm-4">
+    <div class="col-sm-4"></div>
       <div class="form-group">
         {{ wtf.form_field(form.date, class="form-control") }}
       </div>
@@ -39,6 +39,5 @@
     </div>
   </div>
   <b>{{ wtf.form_errors(form) }}</b>
-
   <b>{{ error }}</b>
   {% endblock %}

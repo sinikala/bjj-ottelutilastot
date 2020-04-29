@@ -49,8 +49,8 @@ def auth_register():
 
     db.session.add(user)
     db.session().commit()
-    flash('Kiitos rekisteröitymisestä')
+    login_user(user)
 
-    return redirect(url_for('auth_login'))
+    return redirect(url_for("index"))
 
       

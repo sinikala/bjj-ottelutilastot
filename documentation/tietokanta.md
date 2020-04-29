@@ -33,7 +33,7 @@ CREATE TABLE match (
 	fighter2_id INTEGER NOT NULL, 
 	winner_id INTEGER, 
 	winning_category VARCHAR(144), 
-	comment VARCHAR(244), 
+	comment VARCHAR(100), 
 	creator_id INTEGER NOT NULL, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(creator_id) REFERENCES account (id)

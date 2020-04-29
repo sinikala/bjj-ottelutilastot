@@ -1,83 +1,32 @@
 {% extends "layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
 
 {% block body %}
 <h2>Rekisteröityminen</h2>
 <b>Tämä palvelu on käytössä vain ylläpidolle</b>
-<p>{{ error }}</p>
 <form method="POST" action="{{ url_for('auth_register') }}">
-  <table>
-    <tr>
-        <td>
-          {{ form.name.label }}
-        </td>
-        <td>
-          {{ form.name }}
-        </td>
-        <td>
-            <ul>
-              {% for error in form.name.errors %}
-              <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          </td>
-      </tr>
-    <tr>
-      <td>
-	    {{ form.username.label }}
-      </td>
-      <td>
-	    {{ form.username }}
-      </td>
-      <td>
-        <ul>
-          {% for error in form.username.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-	    {{ form.password.label }}
-      </td>
-      <td>
-	    {{ form.password }}
-      </td>
-      <td>
-        <ul>
-          {% for error in form.password.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.confirm.label }}
-      </td>
-      <td>
-        {{ form.confirm }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-	    {{ form.registrationkey.label }}
-      </td>
-      <td>
-	    {{ form.registrationkey }}
-      </td>
-      <td>
-        <ul>
-          {% for error in form.registrationkey.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-	<input type="submit" value="Rekisteröidy"/>
-      </td>
-    </tr>
+  <div class="col-sm-3">
+    <div class="form-group">
+      {{ wtf.form_field(form.name, class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ wtf.form_field(form.username, class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ wtf.form_field(form.password, class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ wtf.form_field(form.confirm, class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ wtf.form_field(form.registrationkey, class="form-control") }}
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-outline-primary btn-sm" value="Rekisteröidy"/>
+    </div>
+  </div>
 </form>
+<b>{{ wtf.form_errors(form) }}</b>
+<p>{{ error }}</p>
 {% endblock %}

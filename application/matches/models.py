@@ -20,7 +20,7 @@ class Match(db.Model):
     place=db.Column(db.String(144), nullable=False)
     winner_id=db.Column(db.Integer)
     winning_category= db.Column(db.String(144))
-    comment=db.Column(db.String(244))
+    comment=db.Column(db.String(100))
     creator_id= db.Column(db.Integer, db.ForeignKey('account.id'), nullable= False)
 
     points=db.relationship('Points', secondary=matchpoints, backref='match')

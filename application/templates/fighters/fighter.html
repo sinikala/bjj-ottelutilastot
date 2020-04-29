@@ -1,43 +1,45 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <form method="GET" action="{{ url_for('fighters_index') }}">
-            <input type="submit" value="Takaisin"/>
-    </form>
-    <h2>{{fighter.name}}</h2>
-    <table>
-        <tr>
-            <td><b>Syntymävuosi</b></td>
-            <td>{{fighter.born}}</td> 
-        </tr>
-        <tr>
-            <td><b>Vyöarvo</b></td>
-            <td>{{fighter.belt}}</td> 
-        </tr>
-        <tr>
-            <td><b>Paino</b></td>
-            <td>{{fighter.weight}}</td> 
-        </tr>
-        <tr>
-            <td><b>Kotiseura</b></td>
-            <td>{{fighter.club}}</td> 
-        </tr>
-        <tr>
-            <td><b>Otteluita</b></td>
-            <td>{{history[0]}}</td> 
-        </tr>
-        <tr>
-            <td><b>Voittoja</b></td>
-            <td>{{history[1]}}</td> 
-        </tr>       
-    </table>
-    {% if current_user.is_authenticated %}
-    <form method="GET" action="{{ url_for('fighters_editform', fighter_id=fighter.id) }}">
-        <input type="submit" value="Muokkaa tietoja"/>
-  </form>
-    <form method="DELETE" action="{{ url_for('remove_fighter', fighter_id=fighter.id) }}">
-          <input type="submit" value="Poista ottelija"/>
-    </form>
-    {% endif %}
+{% block styles %}
+<style>
+  .jumbotron {
+    max-width: 35%;
+    background-color: #AEB6BF;;
+  }
+</style>
+{% endblock %}
+<form method="GET" action="{{ url_for('fighters_index') }}">
+  <input type="submit" class="btn btn-outline-primary btn-sm" value="Takaisin"/>
+</form>
+</br>
+<div class="jumbotron">
+<h2 class="display-5">{{fighter.name}}</h2>
+<hr class="my-4">
+</div>
+</br>
+</br>
+<dl class="row">
+  <dt class="col-sm-2">Syntymävuosi</dt>
+  <dd class="col-sm-10">{{fighter.born}}</dd>
+  <dt class="col-sm-2">Vyöarvo</dt>
+  <dd class="col-sm-10">{{fighter.belt}}</dd>
+  <dt class="col-sm-2">Kotiseura</dt>
+  <dd class="col-sm-10">{{fighter.club}}</dd>
+  <dt class="col-sm-2">Paino</dt>
+  <dd class="col-sm-10">{{fighter.weight}}</dd>
+  <dt class="col-sm-2">Otteluita</dt>
+  <dd class="col-sm-10">{{history[0]}}</dd>
+  <dt class="col-sm-2">Voittoja</dt>
+  <dd class="col-sm-10">{{history[1]}}</dd>
+</dl>
+{% if current_user.is_authenticated %}
+<form method="GET" action="{{ url_for('fighters_editform', fighter_id=fighter.id) }}">
+  <input type="submit" class="btn btn-outline-primary btn-sm" value="Muokkaa tietoja"/>
+</form>
+<form method="DELETE" action="{{ url_for('remove_fighter', fighter_id=fighter.id) }}">
+  <input type="submit" class="btn btn-outline-primary btn-sm" value="Poista ottelija"/>
+</form>
+{% endif %}
      
 {% endblock %}

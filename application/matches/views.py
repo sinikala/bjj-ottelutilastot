@@ -102,11 +102,12 @@ def matches_form():
 def match_toggle_winner(match_id):
 
     m = Match.query.get_or_404(match_id)
+    fighters=Match.get_fighters(match_id)
     
-    if (m.winner_id==m.fighter1_id):
-        m.winner_id=m.fighter2_id
+    if (m.winner_id==fighters[0]["id"]):
+        m.winner_id=fighters[1]["id"]
     else:
-         m.winner_id=m.fighter1_id
+         m.winner_id=fighters[0]["id"]
     db.session().commit()
   
     return redirect(url_for("matches_index"))

@@ -1,7 +1,7 @@
 # Tulospalvelu brasilialaisen jujutsun -otteluille
 Käyttäjä voi palvelun avulla tarkastella toteutuneiden BJJ-otteluiden tuloksia sekä otelleiden ottelijoiden tulosten kannalta oleellisia tietoja, kuten vyötaso ja kotiseura.
 
-Palvelu kertoo otteluista seuraavat tiedot: aika, paikka, ottelijat, ottelutaso (valko-/väri-/mustavöiset), voittaja ja voittotyyppi (luovutus-, pistevoitto tai tuomarin päätös). Mikäli ottelu on päättynyt pistevoitolla, näytetään myös kyseisen ottelun lopulliset pisteet.
+Palvelu kertoo otteluista seuraavat tiedot: aika, paikka, ottelijat,heidän vyötasonsa, voittaja ja voittotyyppi (luovutus-, pistevoitto tai tuomarin päätös). Mikäli ottelu on päättynyt pistevoitolla, näytetään myös kyseisen ottelun lopulliset pisteet.
 
 Tulostilastoja voi rajata eri ominaisuuksien, kuten seura, voittotyyppi tai ottelija perusteella. Myös ottelijoita voi hakea esim. seuran perusteella ja tarkastella kunkin ottelijan henkilökohtaisia tilastoja.
 
@@ -29,7 +29,7 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
                 WHERE matchpoints.match_id = ?;
     ```
 
-- nähdä yksittäisestä ottelusta ottelun päivämäärän, paikan, osallistujat, voittajan, ottelussa tehdyt pisteet, mikäli kysessä pisteillä voitettu ottelu(*) ja voittotyypin sekä mahdollisen moderaattorin kommentin
+- nähdä yksittäisestä ottelusta ottelun päivämäärän, paikan, osallistujat, voittajan, ottelussa tehdyt pisteet, mikäli kysessä pisteillä voitettu ottelu ja voittotyypin sekä mahdollisen moderaattorin kommentin
   
    Toteutuu yllä olevilla kyselyillä. 
 
@@ -56,7 +56,8 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
 - tarkastella yksittäisen ottelijoiden tietoja, jotka sisältävät ottelijan nimen, vyötason, painon, otteluiden ja voittojen määrän sekä kotiseuran
 
     ``` 
-    SELECT * FROM Fighters;
+    SELECT * FROM Fighters
+                WHERE id=?;
     ``` 
     Ottelut
     ```
@@ -100,8 +101,8 @@ Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä
  -  ...**sisäänkirjatuneena** ... 
     - lisätä ottelun palveluun
          ```
-        INSERT INTO Match (date, place, winning_category, fighter1_id, fighter2_id, winner_id, creator_id, comment) 
-                VALUES (?,?,?,?,?,?,?,?);
+        INSERT INTO Match (date, place, winning_category, winner_id, creator_id, comment) 
+                VALUES (?,?,?,?,?,?);
         ```
         Lisäksi liitetään ottelijat otteluun ja tarvittaessa lisätään pisteet
         ```

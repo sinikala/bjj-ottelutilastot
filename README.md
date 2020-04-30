@@ -4,9 +4,9 @@
 ### Tulospalvelu brasilialaisen jujutsun -otteluille
 Käyttäjä voi palvelun avulla tarkastella toteutuneiden BJJ-otteluiden tuloksia sekä otelleiden ottelijoiden tulosten kannalta oleellisia tietoja, kuten vyötaso ja kotiseura.
 
-Palvelu kertoo otteluista seuraavat tiedot: aika, paikka, ottelijat, ottelutaso (valko-/väri-/mustavöiset), painoluokka, voittaja ja voittotyyppi (luovutus-, pistevoitto tai tuomarin päätös). Mikäli ottelu on päättynyt pistevoitolla, näytetään myös kyseisen ottelun lopulliset pisteet.
+Palvelu kertoo otteluista seuraavat tiedot: aika, paikka, ottelijat, heidän vyötasonsa, voittaja ja voittotyyppi (luovutus-, pistevoitto tai tuomarin päätös). Mikäli ottelu on päättynyt pistevoitolla, näytetään myös kyseisen ottelun lopulliset pisteet.
 
-Tulostilastoja voi rajata eri ominaisuuksien, kuten seura, voittotyyppi tai ottelija (tulossa) perusteella. Myös ottelijoita voi hakea esim. seuran perusteella ja tarkastella kunkin ottelijan henkilökohtaisia tilastoja.
+Tulostilastoja voi rajata eri ominaisuuksien, kuten seura, voittotyyppi tai ottelija perusteella. Myös ottelijoita voi hakea esim. seuran perusteella ja tarkastella kunkin ottelijan henkilökohtaisia tilastoja.
 
 Kirjautunut käyttäjä voi lisätä palveluun uusia otteluita tuloksineen sekä uusia ottelijoita ja muokata tietoja. 
 
@@ -23,7 +23,6 @@ Herokussa voit luoda omat käyttäjätunnuksesi tai kirjautua suoraan sisään t
 
 käyttäjänimi: root
 salasana: secret
-
 
 Luodaksesi omat tunnukset, tarvitset rekisteröitymisavaimen `berimbolo`
 

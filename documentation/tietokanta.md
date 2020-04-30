@@ -10,7 +10,7 @@ Tietokanta koostuu neljästä taulusta ja kahdesta liitostaulusta
 
 ### Tietokannan SQL-luontilauseet
 
-#### Account -rekisteröityneet käyttäjät
+#### User nimellä account -rekisteröityneet käyttäjät
 ```
 CREATE TABLE account (
 	id INTEGER NOT NULL, 
@@ -29,8 +29,6 @@ CREATE TABLE match (
 	id INTEGER NOT NULL, 
 	date DATE, 
 	place VARCHAR(144) NOT NULL, 
-	fighter1_id INTEGER NOT NULL, 
-	fighter2_id INTEGER NOT NULL, 
 	winner_id INTEGER, 
 	winning_category VARCHAR(144), 
 	comment VARCHAR(100), 

@@ -11,8 +11,8 @@
 
 2. Herokussa
     - Varmista, että kaikki toimii paikallisesti.
-    - Käytössäsi tulee olla herokun komentorivityökalu  [heroku-cli][https://devcenter.heroku.com/articles/heroku-cli].
-    - Heroku käyttää palvelimen käynnistämisessä [Gunicorn][http://gunicorn.org/]-palvelinta. Asenna se. 
+    - Käytössäsi tulee olla herokun komentorivityökalu  [heroku-cli](https://devcenter.heroku.com/articles/heroku-cli).
+    - Heroku käyttää palvelimen käynnistämisessä [Gunicorn](http://gunicorn.org/) -palvelinta. Asenna se. 
     - Luo Heroku-sivu komennolla `heroku create "sovelluksen-nimi"`
     - Lisätään sovelluksen käyttöön tieto siitä, että sovellus on Herokussa: `heroku config:set HEROKU=1`
     - Lisätään Herokuun sovellukselle tietokanta: `heroku addons:add heroku-postgresql:hobby-dev` 
